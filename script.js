@@ -4,7 +4,9 @@ $(document).ready(function() {
                  console.log(data);
                  var output = '<ul>';  
                  $.each(data, function(key,val){
-                  output += '<li>'+ val.serviceName + '<li>' + val.urls + '</li>' + val.tcpPorts + '<li>';
+                  output += '<li>'+ val.serviceName + '</li>';
+                  output += '<li>'+ val.urls + '</li>';
+                  output += '<li>'+ val.tcpPorts + '/<li>';
                  });
                  output += '</ul>';
                  $('#update').html(output);
