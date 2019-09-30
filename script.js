@@ -6,7 +6,7 @@ $(document).ready(function() {
                  $.each(data, function(key,val){
                   output += 'Service: ' + val.serviceName + '<br>';
                   output += 'URLS: ' + val.urls + '<br>';
-                  output += 'IP Addresses: ' + val.ip_ranges + '<br>;           
+                  output += 'IP Addresses: ' + val.ip_ranges + '<br>';           
                   output += 'TCP Ports: ' + val.tcpPorts + '<br>';
                  });
                  output += '<br>';
