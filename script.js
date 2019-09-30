@@ -1,5 +1,5 @@
 $(document).ready(function() {
-            $("#driver").click(function(event){
+            $("#test").click(function(event){
                $.getJSON('ibc_ip_and_port_ranges.json',function(data){
                  console.log(data);
                  var output = '<br>';  
@@ -10,7 +10,7 @@ $(document).ready(function() {
                   output += 'TCP Ports: ' + val.tcpPorts + '<br>';
                  });
                  output += '<br>';
-                 $('#update').html(output);
+                 $('#log').html(output);
                });
             });
 });
