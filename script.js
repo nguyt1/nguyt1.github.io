@@ -5,8 +5,14 @@ $(document).ready(function() {
                  var output = '<br>';  
                  $.each(data, function(key,val){
                   output += 'Service: ' + val.serviceName + '<br>';
-                  output += 'URLS: ' + val.urls + '<br>';
-                  output += 'IP Addresses: ' + val.ip_ranges + '<br>';           
+                  if (typeof val.urls !== "undefined")
+                  {
+                   output += 'URLS: ' + val.urls + '<br>';
+                  }
+                  if (typeof val.ip_ranges !== "undefined")
+                  {            
+                   output += 'IP Addresses: ' + val.ip_ranges + '<br>';
+                  }            
                   output += 'TCP Ports: ' + val.tcpPorts + '<br>';
                  });
                  output += '<br>';
