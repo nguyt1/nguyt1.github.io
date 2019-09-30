@@ -1,8 +1,11 @@
-$(document).ready(function() {
-            $("#test").click(function(event){
-               $.getJSON('ibc_ip_and_port_ranges.json',function(data){
+var output;
+var json_file_name = 'ibc_ip_and_port_ranges.json';
+
+function read_json_file()
+{
+            $.getJSON('ibc_ip_and_port_ranges.json',function(data){
                  console.log(data);
-                 var output = '<br>';  
+                 output = '<br>';  
                  $.each(data, function(key,val){
                   output += 'Service: ' + val.serviceName + '<br>';
                   if (typeof val.urls !== "undefined")
@@ -18,5 +21,10 @@ $(document).ready(function() {
                  output += '<br>';
                  $('#log').html(output);
                });
+}
+
+$(document).ready(function() {
+            $("#test").click(function(event){
+                        read_json_file();
             });
 });
