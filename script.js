@@ -2,13 +2,14 @@ $(document).ready(function() {
             $("#driver").click(function(event){
                $.getJSON('ibc_ip_and_port_ranges.json',function(data){
                  console.log(data);
-                 var output = '<ul>';  
+                 var output = '<br>';  
                  $.each(data, function(key,val){
-                  output += '<li>'+ val.serviceName + '</li>';
-                  output += '<li>'+ val.urls + '</li>';
-                  output += '<li>'+ val.tcpPorts + '/<li>';
+                  output += 'Service: ' + val.serviceName + '<br>';
+                  output += 'URLS: ' + val.urls + '<br>';
+                  output += 'IP Addresses: ' + val.ip_ranges + '<br>;           
+                  output += 'TCP Ports: ' + val.tcpPorts + '<br>';
                  });
-                 output += '</ul>';
+                 output += '<br>';
                  $('#update').html(output);
                });
             });
