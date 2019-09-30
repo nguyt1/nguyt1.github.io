@@ -11,11 +11,13 @@
         text-align:center;
         margin-bottom:20px;
     }
-   
-    #update
+   #update
     {
-        text-align:center;
-    }    
+        overflow:auto;
+        width:720px;
+        height:500px;
+        border:double;
+        margin-top:20px;
   </style>
 
  </head>
@@ -24,7 +26,7 @@
   <div id="banner"><b>IBC Service TCP Ports Reachability Check</b></div>
   <p>Click on the button to test reachbility to TCP ports (required for IBC service)</p>    
   <input type = "button" id = "driver" value = "IBC Ports Reachability Check" />  
-  <div id="update" style="overflow: auto; width:720px; height:500px;" >
+  <div id="update">
   </div>
  </body>
 </html>
