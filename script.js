@@ -346,13 +346,11 @@ $(document).ready(function() {
 								     // for each port, test reachability to host:port
 								     $.each(ports_list, function(k, port) {
 								     output += 'Connecting to ' + host + ':' + port + '<br>';
-								     });
-						             });	    
-                                                 
-                                                 };            
+						                     });
+						             });
+                                                 };
                                                  output += '<br>';
                                      });
-                                     
                                      $('#log').html(output);
                          });
             });
