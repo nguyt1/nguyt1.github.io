@@ -225,6 +225,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			{
 				clearInterval(intID_ws);
 				process_port_ws = true;
+				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
 				if (interval < closetimeout)
 				{
 					port_status_ws =  1; // closed
@@ -248,7 +249,8 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 				process_port_ws = true;
 				port_status_ws = 3; // timeout
 				if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is TIMEOUT');}
-				ws_scan.close();		
+				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
+				ws_scan.close(); 
 			}	
 			return;	
 		}
