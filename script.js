@@ -324,7 +324,7 @@ $(document).ready(function() {
                                                  if (typeof val.tcpPorts == "undefined") {
                                                              output += 'Error: service record missing TCP port' + '<br>';
                                                  } 
-                                                 elseif ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined")) {
+                                                 else if ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined")) {
                                                              output += 'Error: service record missing both URL and IP field' + '<br>';
                                                  }
                                                  else {
