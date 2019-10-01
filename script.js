@@ -331,6 +331,7 @@ $(document).ready(function() {
                                                  }
 					         // valid json record, start checking
                                                  else {
+							     prepare_ports();
                                                              if (typeof val.urls !== "undefined") {
                                                                          hosts_list = val.urls;
                                                              }
