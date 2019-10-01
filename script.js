@@ -334,7 +334,7 @@ $(document).ready(function() {
                                                              else {
                                                                          host = val.ip_ranges;
                                                              }            
-                                                             output += 'Host: ' + host + 'at Ports:' + '<br>';
+                                                             output += 'Host: ' + host + '   at Ports: ' + val.tcpPorts'<br>';
                                                  }            
                                                  output += '<br>';
                                      });
