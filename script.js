@@ -309,54 +309,6 @@ var json_file = 'ibc_ip_and_port_ranges.json';
 		, 1);
 	}
 
-	prepare_ports();
-
-	if (ports_list.length < 1)
-	{
-//		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scan aborted, no valid ports provided to scan');
-		return;
-	} else 
-	{
-		desc = '';
-		if (ports == 'default' || ports == 'top') {
-			desc = ports + ' ports on ';
-		} 
-//		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scanning ' + desc + host+' [ports: ' + ports_list + ']');
-	}
-	
-	count = 0;
-	start_scan = (new Date).getTime();
-
-	s =  setInterval(
-	
-	function() 
-	{
-		if(count < ports_list.length)
-		{
-			start_time_cors = (new Date).getTime();
-			cors_scan(host, ports_list[count]);
-			start_time_ws = (new Date).getTime();
-			websocket_scan(host, ports_list[count]);
-			start_time_http = (new Date).getTime();
-			http_scan(protocol, host, ports_list[count]);
-    		}
-		
-    		count++;
-		port_status_http = 0; // unknown
-		process_port_http = false;
-		port_status_ws = 0; // unknown
-		process_port_ws = false;
-		port_status_cors = 0; // unknown
-		process_port_cors = false;
-
-    		if(count >= ports_list.length) 
-		{ 
-			clearInterval(s);
-			var interval = (new Date).getTime() - start_scan;
-//			setTimeout(function() { beef.net.send('<%= @command_url %>', <%= @command_id %>, 'Scan Finished in ' + interval + ' ms'); }, opentimeout*2);
-		}
-	}
-	,timeval);
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
