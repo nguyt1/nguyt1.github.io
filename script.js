@@ -122,7 +122,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 
 		cs_scan = new XMLHttpRequest();
 
-            	cs_scan.open('GET', "http://" + hostname + ":" + port_, true);
+            	cs_scan.open('GET', "https://" + hostname + ":" + port_, true);
             	cs_scan.send(null);
 
 		intID_cors = setInterval(
