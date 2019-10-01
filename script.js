@@ -1,5 +1,5 @@
 var output;
-var json_file = 'ibc_ip_and_port_ranges.json';
+var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data file containing required urls, ip addresses, ports number 
 
 // start of codes copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 	var blocked_ports = [ 1, 7, 9, 11, 13, 15, 17, 19, 20, 21, 22, 23, 25, 37, 42, 43, 53, 77, 79, 87, 95, 101, 102, 103, 104, 109, 110, 111, 113, 115, 117, 119, 123, 135, 139, 143, 179, 389, 465, 512, 513, 514, 515, 526, 530, 531, 532, 540, 556, 563, 587, 601, 636, 993, 995, 2049, 3659, 4045, 6000, 6665, 6666, 6667, 6668, 6669, 65535 ];
@@ -317,15 +317,19 @@ $(document).ready(function() {
             $("#test").click(function(event){                                     
                          $.getJSON(json_file,function(data){
                                      console.log(data);
-                                     output = '<br>';  
+                                     output = '<br>'; 
+				     // for each json record representing an IBC service type
                                      $.each(data, function(key,val){
                                                  output += 'Checking reachability for service: ' + val.serviceName + '<br>';
+					         // json record must have a TCP port field
                                                  if (typeof val.tcpPorts == "undefined") {
                                                              output += 'Error: service record missing TCP port' + '<br>';
                                                  } 
+					         // json record must have either an URL or an IP address field
                                                  else if ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined")) {
                                                              output += 'Error: service record missing both URL and IP field' + '<br>';
                                                  }
+					         // valid json record, start checking
                                                  else {
                                                              if (typeof val.urls !== "undefined") {
                                                                          hosts_list = val.urls;
@@ -333,8 +337,8 @@ $(document).ready(function() {
                                                              else {
                                                                          hosts_list = val.ip_ranges;
                                                              }
-							     ports_list = val.tcpPorts
-                                                             output += 'Host: ' + hosts_list + '   at Ports: ' + ports_list + '<br>';
+							     port = val.tcpPorts;
+                                                             output += 'Host: ' + hosts_list + '   at Ports: ' + port + '<br>';
                                                  }            
                                                  output += '<br>';
                                      });
