@@ -31,8 +31,7 @@ var json_file = 'ibc_ip_and_port_ranges.json';
 
 	var port = "";
 	var ports_list= [];
-            var urls_list= [];
-            var ip_list= [];
+        var hosts_list= [];
 
 	var timeval = parseInt(opentimeout) + parseInt(delay*2);
 	var port_status_http = 0;
@@ -329,12 +328,13 @@ $(document).ready(function() {
                                                  }
                                                  else {
                                                              if (typeof val.urls !== "undefined") {
-                                                                         host = val.urls;
+                                                                         hosts_list = val.urls;
                                                              }
                                                              else {
-                                                                         host = val.ip_ranges;
-                                                             }            
-                                                             output += 'Host: ' + host + '   at Ports: ' + val.tcpPorts'<br>';
+                                                                         hosts_list = val.ip_ranges;
+                                                             }
+							     ports_list = val.tcpPorts
+                                                             output += 'Host: ' + hosts_list + '   at Ports: ' + ports_list + '<br>';
                                                  }            
                                                  output += '<br>';
                                      });
