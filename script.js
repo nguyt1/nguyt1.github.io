@@ -169,7 +169,8 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 				port_status_cors = 3; // timeout
 				if (debug_value){ console.log('CORS Scan:' + hostname + 'at port ' + port_ + ' is TIMEOUT');}
 			}
-                                    if (debug_value){ console.log('CORS Scan:' + hostname + 'at port' + port_ + ', Time interval=', interval);}
+                        if (debug_value){ console.log('CORS Scan:' + hostname + 'at port' + port_ + ', Time interval=' + interval);}
+			output += 'CORS Scan:' + hostname + 'at port' + port_ + ', Time interval=' + interval + '<br>';
 			return;	
 		}
 		, 1);
