@@ -29,7 +29,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var intID_ws = undefined;
 	var intID_cors = undefined;
 
-	var port = "";
+	var ports = "";
 	var ports_list= [];
         var hosts_list= [];
 
