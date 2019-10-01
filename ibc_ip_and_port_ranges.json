@@ -1,33 +1,5 @@
 [
   {
-    "serviceName": "IM&P",
-    "urls": [
-      "ibc.sasktel.com"
-    ],
-    "tcpPorts": "5222"
-  },
-  {
-    "serviceName": "File Transfer",
-    "urls": [
-      "ibc.sasktel.com"
-    ],
-    "tcpPorts": "1081,52644,52645,52646"
-  },
-  {
-    "serviceName": "Desktop Sharing",
-    "urls": [
-      "ibc.sasktel.com"
-    ],
-    "tcpPorts": "8443"
-  },
-  {
-    "serviceName": "Login/Feature Changes",
-    "urls": [
-      "dms.ibc.sasktel.com"
-    ],
-    "tcpPorts": "443"
-  },
-  {
     "serviceName": "Polycom Device Provisioning",
     "urls": [
       "ztp.polycom.com"
@@ -40,21 +12,5 @@
       "activate.cisco.com"
     ],
     "tcpPorts": "443"
-  },
-  {
-    "serviceName": "Voice/Video Call Signaling",
-    "urls": [
-      "snp.ibc.sasktel.com",
-      "ssp.ibc.sasktel.com"
-    ],
-    "tcpPorts": "5061"
-  },
-  {
-    "serviceName": "Voice/Video Secure Call Media",
-    "ip_ranges": [
-      "142.165.233.16",
-      "142.165.233.24"
-    ],
-    "tcpPorts": "10000-10005"
-  } 
+  }
 ]
