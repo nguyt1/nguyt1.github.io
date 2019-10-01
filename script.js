@@ -348,11 +348,25 @@ $(document).ready(function() {
 								     prepare_ports();
 								     // for each port, test reachability to host:port
 								     $.each(ports_list, function(k,port) {
-									     output += 'Connecting to ' + host + ':' + port + '<br>';
+									     output += 'Connecting to ' + host + ':' + port + ', ';
 								//	     start_time_cors = (new Date).getTime();
 								//	     cors_scan(host,port);
 									     start_time_ws = (new Date).getTime();
 								             websocket_scan(host,port);
+									     switch (port_status_ws) {
+										     case 1:
+											     output += 'Port state = CLOSED' + '<br>';
+											     break;
+										     case 2:
+											     output += 'Port state = OPEN' + '<br>';
+											     break;
+										     case 3:
+											     output += 'Port state = TIMEOUT' + '<br>';
+											     break;
+										     case 4:
+											     output += 'Port state = BLOCKED' + '<br>';
+											     break;
+									     };		     
 						                     });
 						             });
                                                  };
