@@ -347,8 +347,8 @@ $(document).ready(function() {
 								     // for each port, test reachability to host:port
 								     $.each(ports_list, function(k,port) {
 									     output += 'Connecting to ' + host + ':' + port + '<br>';
-									     start_time_cors = (new Date).getTime();
-									     cors_scan(host,port);
+								//	     start_time_cors = (new Date).getTime();
+								//	     cors_scan(host,port);
 									     start_time_ws = (new Date).getTime();
 								             websocket_scan(host,port);
 						                     });
