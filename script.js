@@ -313,7 +313,7 @@ var json_file = 'ibc_ip_and_port_ranges.json';
 
 	if (ports_list.length < 1)
 	{
-		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scan aborted, no valid ports provided to scan');
+//		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scan aborted, no valid ports provided to scan');
 		return;
 	} else 
 	{
@@ -321,7 +321,7 @@ var json_file = 'ibc_ip_and_port_ranges.json';
 		if (ports == 'default' || ports == 'top') {
 			desc = ports + ' ports on ';
 		} 
-		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scanning ' + desc + host+' [ports: ' + ports_list + ']');
+//		beef.net.send('<%= @command_url %>', <%= @command_id %>, 'port=Scanning ' + desc + host+' [ports: ' + ports_list + ']');
 	}
 	
 	count = 0;
@@ -353,7 +353,7 @@ var json_file = 'ibc_ip_and_port_ranges.json';
 		{ 
 			clearInterval(s);
 			var interval = (new Date).getTime() - start_scan;
-			setTimeout(function() { beef.net.send('<%= @command_url %>', <%= @command_id %>, 'Scan Finished in ' + interval + ' ms'); }, opentimeout*2);
+//			setTimeout(function() { beef.net.send('<%= @command_url %>', <%= @command_id %>, 'Scan Finished in ' + interval + ' ms'); }, opentimeout*2);
 		}
 	}
 	,timeval);
