@@ -319,28 +319,37 @@ $(document).ready(function() {
                                      console.log(data);
                                      output = '<br>'; 
 				     // for each json record representing an IBC service type
-                                     $.each(data, function(key,val){
+                                     $.each(data, function(i,val){
+					         // For each service record, do the followings
                                                  output += 'Checking reachability for service: ' + val.serviceName + '<br>';
-					         // json record must have a TCP port field
+					         // check if json record have a TCP port field
                                                  if (typeof val.tcpPorts == "undefined") {
                                                              output += 'Error: service record missing TCP port' + '<br>';
                                                  } 
-					         // json record must have either an URL or an IP address field
+					         // check if json record has either an URL or an IP address array field
                                                  else if ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined")) {
                                                              output += 'Error: service record missing both URL and IP field' + '<br>';
                                                  }
-					         // valid json record, start checking
+					         // valid json record, start testing reachability to the given service
                                                  else {
-							     prepare_ports();
-                                                             if (typeof val.urls !== "undefined") {
+							     if (typeof val.urls !== "undefined") {
                                                                          hosts_list = val.urls;
                                                              }
                                                              else {
                                                                          hosts_list = val.ip_ranges;
                                                              }
-							     port = val.tcpPorts;
-                                                             output += 'Host: ' + hosts_list + '   at Ports: ' + port + '<br>';
-                                                 }            
+							     prepare_ports(); // convert port string to array of port
+							     // For each host in the service record
+							     $.each(hosts_list, function(j, host) {
+								     ports = val.tcpPorts;
+								     prepare_ports();
+								     // for each port, test reachability to host:port
+								     $.each(ports_list, function(k, port) {
+								     output += 'Connecting to ' + host + ':' + port + '<br>';
+								     };
+						             };	    
+                                                 
+                                                 };            
                                                  output += '<br>';
                                      });
                                      
