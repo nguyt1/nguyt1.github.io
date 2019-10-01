@@ -187,11 +187,11 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 
 		if ("WebSocket" in window)
 		{
-			ws_scan = new WebSocket("ws://" + hostname + ":" + port_);
+			ws_scan = new WebSocket("wss://" + hostname + ":" + port_);
 		}
 		if ("MozWebSocket" in window)
 		{
-			ws_scan = new MozWebSocket("ws://" + hostname + ":" + port_);
+			ws_scan = new MozWebSocket("wss://" + hostname + ":" + port_);
 		}
 
 		//var interval = (new Date).getTime() - start_time_ws;
