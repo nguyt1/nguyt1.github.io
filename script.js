@@ -366,6 +366,8 @@ $(document).ready(function() {
 										     case 4:
 											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
 											     break;
+										     default:
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is UNKNOWN' + '<br>';
 									     };	
 									    // $('#log').html(output);
 						                     });
