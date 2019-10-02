@@ -1,15 +1,15 @@
 [
   {
     "serviceName": "Polycom Device Provisioning",
-    "urls": [
-      "ztp.polycom.com"
+    "ip_ranges": [
+      "52.0.183.240"
     ],
     "tcpPorts": "443"
   },
   {
     "serviceName": "Cisco Device Provisioning",
-    "urls": [
-      "activate.cisco.com"
+    "ip_ranges": [
+      "72.163.10.134"
     ],
     "tcpPorts": "443"
   }
