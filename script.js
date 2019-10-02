@@ -318,7 +318,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 $(document).ready(function() {
             $("#test").click(function(event){
 		    document.getElementById('log').innerHTML = " ";
-                         $.getJSON(json_file,function(data){
+                        $.getJSON(json_file,function(data){
                                     // console.log(data);
                                     // output = '<br>'; 
 				     // for each json record representing an IBC service type
@@ -355,19 +355,19 @@ $(document).ready(function() {
 								             port_status = websocket_scan(host,port);
 									     switch (port_status) {
 										     case 1:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is CLOSED' + '<br>';
 											     break;
 										     case 2:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is OPEN' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is OPEN' + '<br>';
 											     break;
 										     case 3:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is TIMEOUT' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is TIMEOUT' + '<br>';
 											     break;
 										     case 4:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is BLOCKED' + '<br>';
 											     break;
 										     default:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is UNKNOWN' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port' + port + ' is ' + port_status + '<br>';
 									     };	
 									    // $('#log').html(output);
 						                     });
