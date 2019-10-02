@@ -202,7 +202,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			if (process_port_ws) 
 			{
 				clearInterval(intID_ws);
-				return port_status_ws;
+				return;
 			}
 
 			if (ws_scan.readyState === 0) // CONNECTING
@@ -251,9 +251,10 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
 				ws_scan.close(); 
 			}	
-			return port_status_ws ;
+			return;
 		}
 		, 1);
+		return port_status_ws;
 	}
 
 	function http_scan(protocol_, hostname, port_)
@@ -367,7 +368,7 @@ $(document).ready(function() {
 											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is BLOCKED' + '<br>';
 											     break;
 										     default:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port' + port + ' is ' + port_status + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is ' + port_status + '<br>';
 									     };	
 									    // $('#log').html(output);
 						                     });
