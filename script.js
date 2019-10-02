@@ -316,10 +316,11 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 
 
 $(document).ready(function() {
-            $("#test").click(function(event){                                     
+            $("#test").click(function(event){
+		    document.getElementById('log').innerHTML = " ";
                          $.getJSON(json_file,function(data){
-                                     console.log(data);
-                                     output = '<br>'; 
+                                    // console.log(data);
+                                    // output = '<br>'; 
 				     // for each json record representing an IBC service type
                                      $.each(data, function(i,val){
 					         // For each service record, do the followings
@@ -354,23 +355,23 @@ $(document).ready(function() {
 								             port_status = websocket_scan(host,port);
 									     switch (port_status) {
 										     case 1:
-											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
 											     break;
 										     case 2:
-											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is OPEN' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is OPEN' + '<br>';
 											     break;
 										     case 3:
-											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is TIMEOUT' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is TIMEOUT' + '<br>';
 											     break;
 										     case 4:
-											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
+											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
 											     break;
 									     };	
-									     $('#log').html(output);
+									    // $('#log').html(output);
 						                     });
 						             });
                                                  };
-                                                 output += '<br>';
+                                                 // output += '<br>';
                                      });
                                      // $('#log').html(output);
                          });
