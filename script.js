@@ -1,3 +1,4 @@
+var debug_value = true; // It will show what status is the port for each method
 var output;
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data file containing required urls, ip addresses, ports number 
 
@@ -14,11 +15,10 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	
 	var host = undefined;
 	// TODO: Adjust times for each browser
-	var closetimeout = 150;
+	var closetimeout = 100;
 	var opentimeout = 3000;
 	var delay = 600;
 	var ports = undefined;
-    	var debug = true;
 	var protocol = 'ftp://';
 
 	var start_time_ws = undefined;
@@ -52,12 +52,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var cs_scan = undefined;
 	var s = undefined;
 
-	var debug_value = false; // It will show what status is the port for each method
-    	if (debug == 'true')
-	{
-       		debug_value = true;
-    	}
-
+    	
 	function check_blocked(port_to_check)
 	{
 		var res = false;
