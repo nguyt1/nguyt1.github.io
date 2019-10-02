@@ -37,6 +37,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var port_status_http = 0;
 	var port_status_ws = 0;
 	var port_status_cors = 0;
+        var port_status = undefined;
 	// 0 : unknown
 	// 1 : closed
 	// 2 : open
@@ -350,8 +351,8 @@ $(document).ready(function() {
 								//	     start_time_cors = (new Date).getTime();
 								//	     cors_scan(host,port);
 									     start_time_ws = (new Date).getTime();
-								             port_status_ws = websocket_scan(host,port);
-									     switch (port_status_ws) {
+								             port_status = websocket_scan(host,port);
+									     switch (port_status) {
 										     case 1:
 											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
 											     break;
