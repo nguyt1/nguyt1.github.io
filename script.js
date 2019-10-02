@@ -14,11 +14,11 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	
 	var host = undefined;
 	// TODO: Adjust times for each browser
-	var closetimeout = 250;
+	var closetimeout = 150;
 	var opentimeout = 3000;
 	var delay = 600;
 	var ports = undefined;
-    	var debug = true;
+    	var debug_value = true;
 	var protocol = 'ftp://';
 
 	var start_time_ws = undefined;
@@ -226,6 +226,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			{
 				clearInterval(intID_ws);
 				process_port_ws = true;
+				if (debug_value) {console.log('WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval)};
 				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
 				if (interval < closetimeout)
 				{
@@ -248,6 +249,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			{
 				clearInterval(intID_ws);
 				process_port_ws = true;
+				if (debug_value) {console.log('WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval)};
 				port_status_ws = 3; // timeout
 				if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is TIMEOUT');}
 				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
