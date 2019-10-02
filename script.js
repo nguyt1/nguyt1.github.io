@@ -324,7 +324,7 @@ $(document).ready(function() {
 				     // for each json record representing an IBC service type
                                      $.each(data, function(i,val){
 					         // For each service record, do the followings
-                                                 output += 'Checking reachability for service: ' + val.serviceName + '<br>';
+                                                 // output += 'Checking reachability for service: ' + val.serviceName + '<br>';
 					         // check if json record have a TCP port field
                                                  if (typeof val.tcpPorts == "undefined") {
                                                              output += 'Error: service record missing TCP port' + '<br>';
@@ -372,8 +372,7 @@ $(document).ready(function() {
                                                  };
                                                  output += '<br>';
                                      });
-                                     // $('#log').html(output);
+                                     $('#log').html(output);
                          });
             });
-	$('#log').html(output);
 });
