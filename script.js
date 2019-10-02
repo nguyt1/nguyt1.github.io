@@ -353,16 +353,16 @@ $(document).ready(function() {
 								             websocket_scan(host,port);
 									     switch (port_status_ws) {
 										     case 1:
-											     output += 'Connectivity test to ' + host + ':' + port + ', ''Port state is CLOSED' + '<br>';
+											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
 											     break;
 										     case 2:
-											     output += 'Connectivity test to ' + host + ':' + port + ', ''Port state is OPEN' + '<br>';
+											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is OPEN' + '<br>';
 											     break;
 										     case 3:
-											     output += 'Connectivity test to ' + host + ':' + port + ', ''Port state is TIMEOUT' + '<br>';
+											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is TIMEOUT' + '<br>';
 											     break;
 										     case 4:
-											     output += 'Connectivity test to ' + host + ':' + port + ', ''Port state is BLOCKED' + '<br>';
+											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
 											     break;
 									     };		     
 						                     });
