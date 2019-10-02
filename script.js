@@ -365,13 +365,14 @@ $(document).ready(function() {
 										     case 4:
 											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is BLOCKED' + '<br>';
 											     break;
-									     };		     
+									     };	
+									     $('#log').html(output);
 						                     });
 						             });
                                                  };
                                                  output += '<br>';
                                      });
-                                     $('#log').html(output);
+                                     // $('#log').html(output);
                          });
             });
 });
