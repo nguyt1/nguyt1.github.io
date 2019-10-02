@@ -178,6 +178,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 
 	function websocket_scan(hostname, port_)
 	{
+		process_port_ws = false;
 		if (check_blocked(parseInt(port_)))
 		{
 			process_port_ws = true;
