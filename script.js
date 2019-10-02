@@ -18,7 +18,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var opentimeout = 3000;
 	var delay = 600;
 	var ports = undefined;
-    	var debug_value = true;
+    	var debug = true;
 	var protocol = 'ftp://';
 
 	var start_time_ws = undefined;
