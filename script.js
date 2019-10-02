@@ -179,7 +179,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			process_port_ws = true;
 			port_status_ws = 4; // blocked
 			if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is BLOCKED');}
-			return;
+			return port_status_ws;
 		}
 
 		if ("WebSocket" in window)
@@ -250,7 +250,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
 				ws_scan.close(); 
 			}	
-			return;	
+			return port_status_ws ;
 		}
 		, 1);
 	}
@@ -350,7 +350,7 @@ $(document).ready(function() {
 								//	     start_time_cors = (new Date).getTime();
 								//	     cors_scan(host,port);
 									     start_time_ws = (new Date).getTime();
-								             websocket_scan(host,port);
+								             port_status_ws = websocket_scan(host,port);
 									     switch (port_status_ws) {
 										     case 1:
 											     output += 'Connectivity test to ' + host + ',' + ' tcp port' + port + ' is CLOSED' + '<br>';
