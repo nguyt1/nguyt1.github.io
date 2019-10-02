@@ -15,7 +15,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var host = undefined;
 	// TODO: Adjust times for each browser
 	var closetimeout = 1100;
-	var opentimeout = 2500;
+	var opentimeout = 3000;
 	var delay = 600;
 	var ports = undefined;
     	var debug = true;
@@ -372,7 +372,8 @@ $(document).ready(function() {
                                                  };
                                                  output += '<br>';
                                      });
-                                     $('#log').html(output);
+                                     // $('#log').html(output);
                          });
             });
+	$('#log').html(output);
 });
