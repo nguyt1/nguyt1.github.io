@@ -348,7 +348,7 @@ $(document).ready(function() {
 								     prepare_ports();
 								     // for each port, test reachability to host:port
 								     $.each(ports_list, function(k,port) {
-									     output += 'Connecting to ' + host + ':' + port + ', ';
+								//	     output += 'Connecting to ' + host + ':' + port + ', ';
 								//	     start_time_cors = (new Date).getTime();
 								//	     cors_scan(host,port);
 									     start_time_ws = (new Date).getTime();
@@ -361,7 +361,7 @@ $(document).ready(function() {
 											     output += 'Port state = OPEN' + '<br>';
 											     break;
 										     case 3:
-											     output += 'Port state = TIMEOUT' + '<br>';
+											     output += 'Connecting to ' + host + ':' + port + ', ' + 'Port state = TIMEOUT' + '<br>';
 											     break;
 										     case 4:
 											     output += 'Port state = BLOCKED' + '<br>';
