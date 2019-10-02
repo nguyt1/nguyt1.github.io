@@ -202,7 +202,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 			if (process_port_ws) 
 			{
 				clearInterval(intID_ws);
-				return;
+				return port_status_ws;
 			}
 
 			if (ws_scan.readyState === 0) // CONNECTING
