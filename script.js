@@ -384,6 +384,7 @@ $(document).ready(function() {
                                      });
                                      // $('#log').html(output);
                          });
-		    console.log(sockets);
+		    // console.log(sockets);
             });
+	console.log(sockets);
 });
