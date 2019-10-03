@@ -35,6 +35,8 @@ var sockets = [];
 	var ports = "";
 	var ports_list= [];
         var hosts_list= [];
+	var current_ip;
+	var current_port;
 
 	var timeval = parseInt(opentimeout) + parseInt(delay*2);
 	var port_status_http = 0;
@@ -321,13 +323,13 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
-function scan_ports_ws(ip, current_port)
+function scan_ports_ws()
 {
 	start_time_ws = (new Date).getTime();
 	try
 	{
-		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-		setTimeout("check_ps_ws(ip,current_port)",5);
+		ws_scan = new WebSocket("wss://" + current_ip + ":" + current_port);
+		setTimeout("check_ps_ws()",5);
 	}
 	catch(err)
 	{
@@ -336,7 +338,7 @@ function scan_ports_ws(ip, current_port)
 	}	
 }
     
-function check_ps_ws(ip, port)
+function check_ps_ws()
 {
 	var interval = (new Date).getTime() - start_time_ws;
 	if(ws_scan.readyState == 0)
@@ -345,15 +347,15 @@ function check_ps_ws(ip, port)
 		{
 			sockets.push(
 			{
-				ip: ip,
-				tcpport: port,
+				ip: current_ip,
+				tcpport: current_port,
 				status: "TIMEOUT"
 			});
                 	return 3;
 		}
 		else
 		{
-			setTimeout("check_ps_ws(ip,port)",5);
+			setTimeout("check_ps_ws()",5);
 		}
 	}
 	else
@@ -362,8 +364,8 @@ function check_ps_ws(ip, port)
 		{
 			sockets.push(
 			{
-				ip: ip,
-				tcpport: port,
+				ip: current_ip,
+				tcpport: current_port,
 				status: "OPEN"
 			});
 			return 2;
@@ -372,8 +374,8 @@ function check_ps_ws(ip, port)
 		{
 			sockets.push(
 			{
-				ip: ip,
-				tcpport: port,
+				ip: current_ip,
+				tcpport: current_port,
 				status: "CLOSE"
 			});
 			return 1;
@@ -414,7 +416,9 @@ $(document).ready(function()
 						$.each(ports_list, function(k,port)
 						{
 							start_time_ws = (new Date).getTime();
-							port_status = scan_ports_ws(host,port);
+							curent_ip = host;
+							current_port = port;
+							port_status = scan_ports_ws();
 							switch (port_status) 
 							{
 								case 1:
