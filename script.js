@@ -329,8 +329,6 @@ $(document).ready(function()
 		document.getElementById('log').innerHTML = " ";
 		$.getJSON(json_file,function(data)
 		{
-                // console.log(data);
-                // output = '<br';
 		// for each json record representing an IBC service type
 			$.each(data, function(i,val)
 			{ // For each service record, do the followings
@@ -358,9 +356,6 @@ $(document).ready(function()
 						// for each port, test reachability to host:port
 						$.each(ports_list, function(k,port)
 						{
-						//	     output += 'Connecting to ' + host + ':' + port + ', ';
-						//	     start_time_cors = (new Date).getTime();
-						//	     cors_scan(host,port);
 							start_time_ws = (new Date).getTime();
 							port_status = websocket_scan(host,port);
 							switch (port_status) 
@@ -383,8 +378,7 @@ $(document).ready(function()
 						});
 					});
 				};
-
-                	});
+			});
 		});
 	});
 	console.log(sockets);
