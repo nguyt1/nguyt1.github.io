@@ -327,7 +327,7 @@ function scan_ports_ws(ip, current_port)
 	try
 	{
 		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-		setTimeout(check_ps_ws(),5,ip,current_port);
+		setTimeout("check_ps_ws(ip,current_port)",5);
 	}
 	catch(err)
 	{
@@ -353,7 +353,7 @@ function check_ps_ws(ip, port)
 		}
 		else
 		{
-			setTimeout(check_ps_ws(),5,ip,port);
+			setTimeout("check_ps_ws(ip,port)",5);
 		}
 	}
 	else
