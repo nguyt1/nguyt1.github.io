@@ -391,7 +391,7 @@ $(document).ready(function()
 		$.getJSON(json_file,function(data)
 		{
 			console.log(data);
-			data.foreach(function(record)
+			data.forEach(function(record)
 			{ // For each IBC service record, do the followings
 				// check if json record have a TCP port field
                         	if (typeof record.tcpPorts == "undefined")
@@ -409,13 +409,13 @@ $(document).ready(function()
 				{
                                 	hosts_list = record.ip_ranges;
 					// For each host in the service record
-					hosts_list.foreach(function(host)
+					hosts_list.forEach(function(host)
 					{
 						current_ip = host;
 						ports = record.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
-						ports_list.foreach(function(port)
+						ports_list.forEach(function(port)
 						{
 							start_time_ws = (new Date).getTime();
 							current_port = port;
