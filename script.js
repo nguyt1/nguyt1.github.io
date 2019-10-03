@@ -339,7 +339,7 @@ function scan_ports_ws(ip, current_port)
 function check_ps_ws(ip, port, ws)
 {
 	var interval = (new Date).getTime() - start_time_ws;
-	if(ws.readyState == 0)
+	if(ws.readyState === 0)
 	{
 		if(interval > closed_port_max)
 		{
@@ -353,7 +353,7 @@ function check_ps_ws(ip, port, ws)
 		}
 		else
 		{
-			setTimeout("check_ps_ws(ip, port)",5);
+			setTimeout("check_ps_ws(ip, port, ws)",5);
 		}
 	}
 	else
