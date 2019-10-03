@@ -327,7 +327,7 @@ function scan_ports_ws(ip, current_port)
 	try
 	{
 		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-		setTimeout("check_ps_ws()",5);
+		setTimeout(check_ps_ws(),5,ip,current_port);
 	}
 	catch(err)
 	{
@@ -336,7 +336,7 @@ function scan_ports_ws(ip, current_port)
 	}	
 }
     
-function check_ps_ws()
+function check_ps_ws(ip, port)
 {
 	var interval = (new Date).getTime() - start_time_ws;
 	if(ws_scan.readyState == 0)
@@ -346,14 +346,14 @@ function check_ps_ws()
 			sockets.push(
 			{
 				ip: ip,
-				tcpport: current_port,
+				tcpport: port,
 				status: "TIMEOUT"
 			});
                 	return 3;
 		}
 		else
 		{
-			setTimeout("check_ps_ws()",5);
+			setTimeout(check_ps_ws(),5,ip,port);
 		}
 	}
 	else
@@ -363,7 +363,7 @@ function check_ps_ws()
 			sockets.push(
 			{
 				ip: ip,
-				tcpport: current_port,
+				tcpport: port,
 				status: "OPEN"
 			});
 			return 2;
@@ -373,7 +373,7 @@ function check_ps_ws()
 			sockets.push(
 			{
 				ip: ip,
-				tcpport: current_port,
+				tcpport: port,
 				status: "CLOSE"
 			});
 			return 1;
