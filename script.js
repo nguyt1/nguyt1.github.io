@@ -326,7 +326,7 @@ function scan_ports_ws(ip, current_port)
 	start_time_ws = (new Date).getTime();
 	try
 	{
-		ws = new WebSocket("wss://" + ip + ":" + current_port);
+		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
 		setTimeout("check_ps_ws(ip, current_port)",5);
 	}
 	catch(err)
@@ -339,7 +339,7 @@ function scan_ports_ws(ip, current_port)
 function check_ps_ws(ip, port)
 {
 	var interval = (new Date).getTime() - start_time_ws;
-	if(ws.readyState == 0)
+	if(ws_scan.readyState == 0)
 	{
 		if(interval > closed_port_max)
 		{
