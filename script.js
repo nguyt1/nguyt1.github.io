@@ -345,7 +345,7 @@ function check_ps_ws(ip, port, ws)
 		}
 		else
 		{
-			setTimeout("check_ps_ws(ip, port, ws)",5);
+			setTimeout(check_ps_ws(),5,ip, current_port,ws_scan);
 		}
 	}
 	else
