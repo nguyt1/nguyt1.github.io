@@ -194,7 +194,7 @@ var sockets = [];
 		}
 
 		//var interval = (new Date).getTime() - start_time_ws;
-
+		start_time_ws = (new Date).getTime();
 		intID_ws = setInterval(
 		function (ip, port)
 		{
@@ -226,7 +226,7 @@ var sockets = [];
 	
 			if (ws_scan.readyState === 3) // CLOSE
 			{
-				// clearInterval(intID_ws);
+				clearInterval(intID_ws);
 				process_port_ws = true;
 				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
 				if (interval < closetimeout)
@@ -248,7 +248,7 @@ var sockets = [];
 
 			if (interval >= opentimeout)
 			{
-				// clearInterval(intID_ws);
+				clearInterval(intID_ws);
 				process_port_ws = true;
 				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
 				port_status_ws = 3; // timeout
