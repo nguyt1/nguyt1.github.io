@@ -353,7 +353,7 @@ function check_ps_ws()
 		}
 		else
 		{
-			setTimeout(check_ps_ws(),5);
+			setTimeout("check_ps_ws()",5);
 		}
 	}
 	else
