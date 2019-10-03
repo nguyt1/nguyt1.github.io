@@ -412,7 +412,7 @@ $(document).ready(function()
 						{
 							start_time_ws = (new Date).getTime();
 							current_port = port;
-							port_status = scan_ports_ws();
+							port_status = scan_ports_ws(current_ip,current_port);
 							switch (port_status) 
 							{
 								case 1:
