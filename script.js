@@ -410,13 +410,13 @@ $(document).ready(function()
 					// For each host in the service record
 					$.each(hosts_list, function(j, host)
 					{
+						current_ip = host;
 						ports = val.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
 						$.each(ports_list, function(k,port)
 						{
 							start_time_ws = (new Date).getTime();
-							curent_ip = host;
 							current_port = port;
 							port_status = scan_ports_ws();
 							switch (port_status) 
