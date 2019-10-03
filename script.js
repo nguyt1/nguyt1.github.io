@@ -19,7 +19,7 @@ var sockets = [];
 	var closetimeout = 120;
 	var opentimeout = 3000;
 	var open_port_max = 300;
-	var closed_port_max = 2000;
+	var closed_port_max = 4000;
 	var delay = 600;
 	var ports = undefined;
 	var protocol = 'ftp://';
@@ -390,6 +390,7 @@ $(document).ready(function()
 		document.getElementById('log').innerHTML = " ";
 		$.getJSON(json_file,function(data)
 		{
+			console.log(data);
 			$.each(data, function(i,val)
 			{ // For each IBC service record, do the followings
 				// check if json record have a TCP port field
