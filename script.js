@@ -324,14 +324,22 @@ var sockets = [];
 function scan_ports_ws(ip, current_port)
 {
 	start_time_ws = (new Date).getTime();
-	ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-	setTimeout(check_ps_ws(),5);
+	try
+	{
+		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
+		setTimeout("check_ps_ws()",5);
+	}
+	catch(err)
+	{
+		document.getElementById('log').innerHTML += "<b>Scan stopped. Exeption: " + err+  "</b> <br>";
+		return;
+	}	
 }
     
 function check_ps_ws()
 {
 	var interval = (new Date).getTime() - start_time_ws;
-	if(ws_scan.readyState === 0)
+	if(ws_scan.readyState == 0)
 	{
 		if(interval > closed_port_max)
 		{
