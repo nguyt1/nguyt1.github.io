@@ -196,13 +196,18 @@ var sockets = [];
 		//var interval = (new Date).getTime() - start_time_ws;
 
 		intID_ws = setInterval(
-		function ()
+		function (ip, port)
 		{
 			var interval = (new Date).getTime() - start_time_ws;
 
 			if (process_port_ws) 
 			{
 				clearInterval(intID_ws);
+				sockets.push({
+					ip: hostname,
+					tcpport: port_,
+					status: port_status_ws
+				});
 				return;
 			}
 
@@ -221,14 +226,13 @@ var sockets = [];
 	
 			if (ws_scan.readyState === 3) // CLOSE
 			{
-				clearInterval(intID_ws);
+				// clearInterval(intID_ws);
 				process_port_ws = true;
-				if (debug_value) {console.log('WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval)};
-				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
+				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
 				if (interval < closetimeout)
 				{
 					port_status_ws =  1; // closed
-					if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is CLOSED');}
+					if (debug_value){ console.log('WS Scan:' + ip + ' at port ' + port +  ' is CLOSED');}
 				} else 
 				{
 					port_status_ws = 2; // open
@@ -237,30 +241,25 @@ var sockets = [];
 					{
 						known_service = "(" + default_services[port_] + ")";
 					}
-					console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is OPEN ' + known_service);
+					console.log('WS Scan:' + ip + ' at port ' + port +  ' is OPEN ' + known_service);
 				}
 				ws_scan.close();
 			}
 
 			if (interval >= opentimeout)
 			{
-				clearInterval(intID_ws);
+				// clearInterval(intID_ws);
 				process_port_ws = true;
-				if (debug_value) {console.log('WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval)};
+				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
 				port_status_ws = 3; // timeout
-				if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is TIMEOUT');}
-				output += 'WS scan: '+ hostname + 'at port ' + port_ + ' , Time Interval: ' + interval + '<br>'; 
-				ws_scan.close(); 
-			}	
+				if (debug_value){ console.log('WS Scan:' + ip + ' at port ' + port +  ' is TIMEOUT');}
+				ws_scan.close();
+
+			}
 			return;
 		}
-		, 1);
-		sockets.push({
-			ip: hostname,
-			tcpport: port_,
-			status: port_status_ws
-		});
-		return port_status_ws;
+		, 1, hostname, port_);
+		return;
 	}
 
 	function http_scan(protocol_, hostname, port_)
@@ -320,8 +319,7 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
-
-
+		
 $(document).ready(function() 
 {
 	$("#test").click(function(event)
@@ -329,10 +327,8 @@ $(document).ready(function()
 		document.getElementById('log').innerHTML = " ";
 		$.getJSON(json_file,function(data)
 		{
-		// for each json record representing an IBC service type
 			$.each(data, function(i,val)
-			{ // For each service record, do the followings
-
+			{ // For each IBC service record, do the followings
 				// check if json record have a TCP port field
                         	if (typeof val.tcpPorts == "undefined")
 				{
