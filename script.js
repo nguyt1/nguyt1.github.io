@@ -322,69 +322,70 @@ var sockets = [];
 
 
 
-$(document).ready(function() {
-            $("#test").click(function(event){
-		    document.getElementById('log').innerHTML = " ";
-                        $.getJSON(json_file,function(data){
-                                    // console.log(data);
-                                    // output = '<br>'; 
-				     // for each json record representing an IBC service type
-                                     $.each(data, function(i,val){
-					         // For each service record, do the followings
-                                                 // output += 'Checking reachability for service: ' + val.serviceName + '<br>';
-					         // check if json record have a TCP port field
-                                                 if (typeof val.tcpPorts == "undefined") {
-                                                             output += 'Error: service record missing TCP port' + '<br>';
-                                                 } 
-					         // check if json record has either an URL or an IP address array field
-                                                 else if ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined")) {
-                                                             output += 'Error: service record missing both URL and IP field' + '<br>';
-                                                 }
-					         // valid json record, start testing reachability to the given service
-                                                 else {
-							     if (typeof val.urls !== "undefined") {
-                                                                         hosts_list = val.urls;
-                                                             }
-                                                             else {
-                                                                         hosts_list = val.ip_ranges;
-                                                             }
-							     prepare_ports(); // convert port string to array of port
-							     // For each host in the service record
-							     $.each(hosts_list, function(j, host) {
-								     ports = val.tcpPorts;
-								     prepare_ports();
-								     // for each port, test reachability to host:port
-								     $.each(ports_list, function(k,port) {
-								//	     output += 'Connecting to ' + host + ':' + port + ', ';
-								//	     start_time_cors = (new Date).getTime();
-								//	     cors_scan(host,port);
-									     start_time_ws = (new Date).getTime();
-								             port_status = websocket_scan(host,port);
-									     switch (port_status) {
-										     case 1:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is CLOSED' + '<br>';
-											     break;
-										     case 2:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is OPEN' + '<br>';
-											     break;
-										     case 3:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is TIMEOUT' + '<br>';
-											     break;
-										     case 4:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is BLOCKED' + '<br>';
-											     break;
-										     default:
-											     document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is ' + port_status + '<br>';
-									     };	
-									    // $('#log').html(output);
-						                     });
-						             });
-                                                 };
-                                                 // output += '<br>';
-                                     });
-                                     // $('#log').html(output);
-                         });
-		    // console.log(sockets);
-            });
+$(document).ready(function() 
+{
+	$("#test").click(function(event)
+	{
+		document.getElementById('log').innerHTML = " ";
+		$.getJSON(json_file,function(data)
+		{
+                // console.log(data);
+                // output = '<br';
+		// for each json record representing an IBC service type
+			$.each(data, function(i,val)
+			{ // For each service record, do the followings
+
+				// check if json record have a TCP port field
+                        	if (typeof val.tcpPorts == "undefined")
+				{
+                                	output += 'Error: service record missing TCP port' + '<br>';
+                                }
+				// check if json record has either an URL or an IP address array field
+                                else if ((typeof val.urls == "undefined") && (typeof val.ip_ranges == "undefined"))
+				{
+                                	output += 'Error: service record missing both URL and IP field' + '<br>';
+                                }
+				
+				// valid json record, start testing reachability to the given service
+                                else
+				{
+                                	hosts_list = val.ip_ranges;
+					// For each host in the service record
+					$.each(hosts_list, function(j, host)
+					{
+						ports = val.tcpPorts;
+						prepare_ports();
+						// for each port, test reachability to host:port
+						$.each(ports_list, function(k,port)
+						{
+						//	     output += 'Connecting to ' + host + ':' + port + ', ';
+						//	     start_time_cors = (new Date).getTime();
+						//	     cors_scan(host,port);
+							start_time_ws = (new Date).getTime();
+							port_status = websocket_scan(host,port);
+							switch (port_status) 
+							{
+								case 1:
+									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is CLOSED' + '<br>';
+									break;
+								case 2:
+									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is OPEN' + '<br>';
+									break;
+								case 3:
+									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is TIMEOUT' + '<br>';
+									break;
+								case 4:
+									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is BLOCKED' + '<br>';
+									break;
+								default:
+									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is ' + port_status + '<br>';
+							};	
+						});
+					});
+				};
+
+                	});
+		});
+	});
 	console.log(sockets);
 });
