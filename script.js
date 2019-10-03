@@ -323,13 +323,21 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
-function scan_ports_ws()
+function scan_ports_ws(current_ip,current_port)
 {
 	start_time_ws = (new Date).getTime();
+	sockets.push(
+	{
+		ip: current_ip,
+		tcpport: current_port,
+		status: undefined
+	});
+	
 	try
 	{
 		ws_scan = new WebSocket("wss://" + current_ip + ":" + current_port);
 		setTimeout("check_ps_ws()",20);
+		
 	}
 	catch(err)
 	{
@@ -345,12 +353,7 @@ function check_ps_ws()
 	{
 		if(interval > closed_port_max)
 		{
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: "TIMEOUT"
-			});
+			console.log(ws_scan.url);
                 	return 3;
 		}
 		else
@@ -362,22 +365,12 @@ function check_ps_ws()
 	{
 		if(interval < open_port_max)
 		{
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: "OPEN"
-			});
+			console.log(ws_scan.url);
 			return 2;
 		}
 		else
 		{
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: "CLOSE"
-			});
+			console.log(ws_scan.url);
 			return 1;
 		}
 	}
