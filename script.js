@@ -324,16 +324,8 @@ var sockets = [];
 function scan_ports_ws(ip, current_port)
 {
 	start_time_ws = (new Date).getTime();
-	try
-	{
-		ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-		setTimeout("check_ps_ws(ip, current_port,ws_scan)",5);
-	}
-	catch(err)
-	{
-		document.getElementById('log').innerHTML += "<b>Scan stopped. Exception: " + err + "</b>";
-		return;
-	}
+	ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
+	setTimeout("check_ps_ws(ip, current_port,ws_scan)",5);
 }
     
 function check_ps_ws(ip, port, ws)
