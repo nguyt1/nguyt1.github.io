@@ -18,6 +18,8 @@ var sockets = [];
 	// TODO: Adjust times for each browser
 	var closetimeout = 120;
 	var opentimeout = 3000;
+	var open_port_max = 300;
+	var closed_port_max = 2000;
 	var delay = 600;
 	var ports = undefined;
 	var protocol = 'ftp://';
@@ -319,6 +321,65 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
+function scan_ports_ws(ip, current_port)
+{
+	start_time_ws = (new Date).getTime();
+	try
+	{
+		ws = new WebSocket("wss://" + ip + ":" + current_port);
+		setTimeout("check_ps_ws(ip, current_port)",5);
+	}
+	catch(err)
+	{
+		document.getElementById('log').innerHTML += "<b>Scan stopped. Exception: " + err + "</b>";
+		return;
+	}
+}
+    
+function check_ps_ws(ip, port)
+{
+	var interval = (new Date).getTime() - start_time_ws;
+	if(ws.readyState == 0)
+	{
+		if(interval > closed_port_max)
+		{
+			sockets.push(
+			{
+				ip: ip,
+				tcpport: port,
+				status: "TIMEOUT"
+			});
+                	return 3;
+            	}
+		else
+		{
+			setTimeout("check_ps_ws(ip, port)",5);
+		}
+	}
+	else
+	{
+		if(interval < open_port_max)
+		{
+			sockets.push(
+			{
+				ip: ip,
+				tcpport: port,
+				status: "OPEN"
+			});
+			return 2;
+		}
+		else
+		{
+			sockets.push(
+			{
+				ip: ip,
+				tcpport: port,
+				status: "CLOSE"
+			});
+			return 1;
+		}
+	}
+}
 		
 $(document).ready(function() 
 {
@@ -353,7 +414,7 @@ $(document).ready(function()
 						$.each(ports_list, function(k,port)
 						{
 							start_time_ws = (new Date).getTime();
-							port_status = websocket_scan(host,port);
+							port_status = check_ps_ws(host,port);
 							switch (port_status) 
 							{
 								case 1:
