@@ -325,7 +325,7 @@ function scan_ports_ws(ip, current_port)
 {
 	start_time_ws = (new Date).getTime();
 	ws_scan = new WebSocket("wss://" + ip + ":" + current_port);
-	setTimeout("check_ps_ws(ip, current_port,ws_scan)",5);
+	setTimeout(check_ps_ws(),5,ip, current_port,ws_scan);
 }
     
 function check_ps_ws(ip, port, ws)
