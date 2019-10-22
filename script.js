@@ -326,12 +326,7 @@ var sockets = [];
 function scan_ports_ws(current_ip,current_port)
 {
 	start_time_ws = (new Date).getTime();
-	sockets.push(
-	{
-		ip: current_ip,
-		tcpport: current_port,
-		status: undefined
-	});
+	
 	
 	try
 	{
@@ -354,7 +349,13 @@ function check_ps_ws()
 		if(interval > closed_port_max)
 		{
 			console.log(ws_scan.url);
-                	return 3;
+			sockets.push(
+			{
+				ip: current_ip,
+				tcpport: current_port,
+				status: 3
+			});
+                	return;
 		}
 		else
 		{
@@ -366,12 +367,24 @@ function check_ps_ws()
 		if(interval < open_port_max)
 		{
 			console.log(ws_scan.url);
-			return 2;
+			sockets.push(
+			{
+				ip: current_ip,
+				tcpport: current_port,
+				status: 2
+			});
+			return;
 		}
 		else
 		{
 			console.log(ws_scan.url);
-			return 1;
+			sockets.push(
+			{
+				ip: current_ip,
+				tcpport: current_port,
+				status: 1
+			});
+			return;
 		}
 	}
 }
