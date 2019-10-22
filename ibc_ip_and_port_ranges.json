@@ -5,5 +5,12 @@
       "52.0.183.240"
     ],
     "tcpPorts": "443"
+  },
+  {
+    "serviceName": "Cisco Device Provisioning",
+    "ip_ranges": [
+      "72.163.10.134"
+    ],
+    "tcpPorts": "443"
   }
 ]
