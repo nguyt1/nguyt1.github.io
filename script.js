@@ -353,7 +353,7 @@ function check_ps_ws()
 	{
 		if(interval > closed_port_max)
 		{
-			console.log(ws_scan.url);
+			console.log(ws_scan.url + );
                 	return 3;
 		}
 		else
@@ -391,10 +391,10 @@ $(document).ready(function()
 				{
                                 	output += 'Error: service record missing TCP port' + '<br>';
                                 }
-				// check if json record has either an URL or an IP address array field
-                                else if ((typeof record.urls == "undefined") && (typeof record.ip_ranges == "undefined"))
+				// check if json record has an IP address array field
+                                else if (typeof record.ip_ranges == "undefined")
 				{
-                                	output += 'Error: service record missing both URL and IP field' + '<br>';
+                                	output += 'Error: service record missing IP field' + '<br>';
                                 }
 				
 				// valid json record, start testing reachability to the given service
@@ -404,15 +404,15 @@ $(document).ready(function()
 					// For each host in the service record
 					hosts_list.forEach(function(host)
 					{
-						current_ip = host;
 						ports = record.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
 						ports_list.forEach(function(port)
 						{
+							
 							start_time_ws = (new Date).getTime();
-							current_port = port;
-							port_status = scan_ports_ws(current_ip,current_port);
+							document.getElementById('log').innerHTML  += 'Testing rechability to ' + host + ' at tcp port ' + port + '<br>';
+							port_status = scan_ports_ws(host,port);
 							switch (port_status) 
 							{
 								case 1:
