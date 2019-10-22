@@ -353,7 +353,7 @@ function check_ps_ws()
 	{
 		if(interval > closed_port_max)
 		{
-			console.log(ws_scan.url + );
+			console.log(ws_scan.url);
                 	return 3;
 		}
 		else
