@@ -323,6 +323,11 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
+const CONNECTING = 0;
+const OPEN = 1;
+const TIMEOUT = 2;
+const CLOSED = 3;
+
 function scan_ports_ws(current_ip,current_port)
 {
 	start_time_ws = (new Date).getTime();
@@ -363,7 +368,7 @@ function check_ps_ws(ws_scan, start_time_ws)
 		}
 		else
 		{
-			return CLOSE;
+			return CLOSED;
 		}
 	}
 }
