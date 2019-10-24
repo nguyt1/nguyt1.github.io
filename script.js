@@ -419,26 +419,10 @@ $(document).ready(function()
 							
 							document.getElementById('log').innerHTML  += 'Testing rechability to ' + host + ' at tcp port ' + port + '<br>';
 							
-							scanWebSocket("host+":"+port", 20).then(function(result) {
-								port_status = result;
+							scanWebSocket(host+":"+port, 20).then(function(result) {
+								document.getElementById('log').innerHTML  += 'result<br>';
 							});	
-							switch (port_status) 
-							{
-								case 1:
-									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is CLOSED' + '<br>';
-									break;
-								case 2:
-									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is OPEN' + '<br>';
-									break;
-								case 3:
-									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is TIMEOUT' + '<br>';
-									break;
-								case 4:
-									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is BLOCKED' + '<br>';
-									break;
-								default:
-									document.getElementById('log').innerHTML  += 'Connectivity test to ' + host + ' at tcp port ' + port + ' is ' + port_status + '<br>';
-							};	
+							
 						});
 					});
 				};
