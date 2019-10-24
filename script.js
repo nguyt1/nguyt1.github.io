@@ -379,7 +379,7 @@ function scanWebSocket(url,period) {
 	var checkCondition = function(resolve,reject) {
 		var result = check_ps_ws(ws_scan, start_time_ws);
 		if (result == CONNECTING) {
-			setTimeout(checkCondition, interval, resolve, reject);
+			setTimeout(checkCondition, period, resolve, reject);
 		}	
 		else {
 			resolve(result);
