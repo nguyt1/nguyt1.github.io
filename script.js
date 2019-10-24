@@ -341,54 +341,47 @@ function scan_ports_ws(current_ip,current_port)
 	}	
 }
     
-function check_ps_ws()
+function check_ps_ws(ws_scan, start_time_ws)
 {
 	var interval = (new Date).getTime() - start_time_ws;
-	if(ws_scan.readyState == 0)
+	if(ws_scan.readyState == ws_scan.CONNECTING)
 	{
 		if(interval > closed_port_max)
 		{
-			console.log(ws_scan.url);
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: 3
-			});
-                	return;
+                	return TIMEOUT;
 		}
 		else
 		{
-			setTimeout("check_ps_ws()",20);
+			return CONNECTING;
 		}
 	}
 	else
 	{
 		if(interval < open_port_max)
 		{
-			console.log(ws_scan.url);
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: 2
-			});
-			return;
+			return OPEN;
 		}
 		else
 		{
-			console.log(ws_scan.url);
-			sockets.push(
-			{
-				ip: current_ip,
-				tcpport: current_port,
-				status: 1
-			});
-			return;
+			return CLOSE;
 		}
 	}
 }
-		
+
+function scanWebSocket(url,period) {
+	start_time_ws = (new Date).getTime();
+	ws_scan = new WebSocket("wss://" + url); 
+	var checkCondition = function(resolve,reject) {
+		var result = check_ps_ws(ws_scan, start_time_ws);
+		if (result == CONNECTING) {
+			setTimeout(checkCondition, interval, resolve, reject);
+		else {
+			resolve(result);
+		}
+	}		
+	return new Promise(checkCondition);
+}
+	
 $(document).ready(function() 
 {
 	$("#test").click(function(event)
@@ -423,9 +416,11 @@ $(document).ready(function()
 						ports_list.forEach(function(port)
 						{
 							
-							start_time_ws = (new Date).getTime();
 							document.getElementById('log').innerHTML  += 'Testing rechability to ' + host + ' at tcp port ' + port + '<br>';
-							port_status = scan_ports_ws(host,port);
+							
+							scanWebSocket("host+":"+port", 20).then(function(result) {
+								port_status = result;
+							}	
 							switch (port_status) 
 							{
 								case 1:
