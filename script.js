@@ -374,6 +374,7 @@ function check_ps_ws(ws_scan, start_time_ws)
 }
 
 function scanWebSocket(url,period) {
+	document.getElementById('log').innerHTML  += 'Testing rechability to ' + url + '<br>';
 	start_time_ws = (new Date).getTime();
 	ws_scan = new WebSocket("wss://" + url); 
 	var checkCondition = function(resolve,reject) {
@@ -420,12 +421,9 @@ $(document).ready(function()
 						prepare_ports();
 						// for each port, test reachability to host:port
 						ports_list.forEach(function(port)
-						{
-							
-							document.getElementById('log').innerHTML  += 'Testing rechability to ' + host + ' at tcp port ' + port + '<br>';
-							
+						{							
 							scanWebSocket(host+":"+port, 20).then(function(result) {
-								document.getElementById('log').innerHTML  += 'result<br>';
+								document.getElementById('log').innerHTML  += result + '<br>';
 							});	
 							
 						});
