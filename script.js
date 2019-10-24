@@ -353,7 +353,7 @@ function check_ps_ws(ws_scan, start_time_ws)
 	{
 		if(interval > closed_port_max)
 		{
-			return TIMEOUT;
+			return interval;
 		}
 		else
 		{
@@ -364,11 +364,11 @@ function check_ps_ws(ws_scan, start_time_ws)
 	{
 		if(interval < open_port_max)
 		{
-			return OPEN;
+			return interval;
 		}
 		else
 		{
-			return CLOSED;
+			return interval;
 		}
 	}
 }
