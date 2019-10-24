@@ -421,7 +421,7 @@ $(document).ready(function()
 							
 							scanWebSocket("host+":"+port", 20).then(function(result) {
 								port_status = result;
-							}	
+							});	
 							switch (port_status) 
 							{
 								case 1:
