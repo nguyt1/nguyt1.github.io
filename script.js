@@ -349,7 +349,7 @@ function scan_ports_ws(current_ip,current_port)
 function check_ps_ws(ws_scan, start_time_ws)
 {
 	var interval = (new Date).getTime() - start_time_ws;
-	if(ws_scan.readyState == ws_scan.CONNECTING)
+	if(ws_scan.readyState === ws_scan.CONNECTING)
 	{
 		if(interval > closed_port_max)
 		{
@@ -378,7 +378,7 @@ function scanWebSocket(url,period) {
 	ws_scan = new WebSocket("wss://" + url); 
 	var checkCondition = function(resolve,reject) {
 		var result = check_ps_ws(ws_scan, start_time_ws);
-		if (result == CONNECTING) {
+		if (result === CONNECTING) {
 			setTimeout(checkCondition, period, resolve, reject);
 		}	
 		else {
@@ -421,7 +421,7 @@ $(document).ready(function()
 						// for each port, test reachability to host:port
 						ports_list.forEach(function(port)
 						{							
-							scanWebSocket(host+":"+port, 20).then(function(result) {
+							scanWebSocket(host+":"+port, 10).then(function(result) {
 								document.getElementById('log').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> Result is:'+result+'<br>';
 							});	
 							
