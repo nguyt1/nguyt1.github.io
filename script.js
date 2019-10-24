@@ -353,7 +353,7 @@ function check_ps_ws(ws_scan, start_time_ws)
 	{
 		if(interval > closed_port_max)
 		{
-                	return TIMEOUT;
+			return TIMEOUT;
 		}
 		else
 		{
@@ -423,7 +423,7 @@ $(document).ready(function()
 						ports_list.forEach(function(port)
 						{							
 							scanWebSocket(host+":"+port, 20).then(function(result) {
-								document.getElementById('log').innerHTML  += result + '<br>';
+								document.getElementById('log').innerHTML  += 'Testing rechability to '+host+':'+port+'- Result is:'+result+'<br>';
 							});	
 							
 						});
@@ -432,5 +432,4 @@ $(document).ready(function()
 			});
 		});
 	});
-	console.log(sockets);
 });
