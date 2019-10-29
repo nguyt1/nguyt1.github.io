@@ -14,7 +14,24 @@
       "142.165.233.121"
     ],
     "tcpPorts": "1081,52644,52645,52646"
-  },  
+  },
+  {
+    "serviceName": "Desktop Sharing",
+    "ip_ranges": [
+      "142.165.233.120",
+      "142.165.233.121"
+    ],
+    "tcpPorts": "8443"
+  },
+  {
+    "serviceName": "Login / Features Change",
+    "ip_ranges": [
+      "142.165.233.65",
+      "142.165.233.66",
+      "142.165.233.67"
+    ],
+    "tcpPorts": "443"
+  },    
   {
     "serviceName": "Polycom Device Provisioning",
     "ip_ranges": [
@@ -29,5 +46,13 @@
       "72.163.10.134"
     ],
     "tcpPorts": "443"
-  }
+  },
+  {
+    "serviceName": "Voice Video Call Signaling",
+    "ip_ranges": [
+      "216.174.151.132",
+      "216.174.151.148"
+    ],
+    "tcpPorts": "5061"
+  }  
 ]
