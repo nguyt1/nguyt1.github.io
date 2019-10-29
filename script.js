@@ -34,7 +34,6 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var current_ip;
 	var current_port;
 
-	var timeval = parseInt(opentimeout) + parseInt(delay*2);
 	var port_status_http = 0;
 	var port_status_ws = 0;
 	var port_status_cors = 0;
