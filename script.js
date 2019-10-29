@@ -1,4 +1,4 @@
-var debug = false; // It will show what status is the port for each method
+var debug = true; // It will show what status is the port for each method
 var output;
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data file containing required urls, ip addresses, ports number 
 
@@ -330,52 +330,44 @@ const CONNECTING = 0;
 const REACHABLE = 1;
 const UNREACHABLE = 2;
 const UNKNOWN = 3;
-
-function scan_ports_ws(current_ip,current_port)
-{
-	start_time_ws = (new Date).getTime();
-	
-	
-	try
-	{
-		ws_scan = new WebSocket("wss://" + current_ip + ":" + current_port);
-		setTimeout("check_ps_ws()",20);
-		
-	}
-	catch(err)
-	{
-		document.getElementById('log').innerHTML += "<b>Scan stopped. Exeption: " + err+  "</b> <br>";
-		return;
-	}	
-}
     
 function check_ps_ws(socket, initial_time)
 {
 	var interval = (new Date).getTime() - initial_time;
 	if (debug) {
-		document.getElementById('log').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> time in CONNECTING state is:'+ interval +' ms<br>';
+		document.getElementById('error').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> time in CONNECTING state is:'+ interval +' ms<br>';
 	}
 	if(socket.readyState === socket.CONNECTING)
 	{
 		if(interval > connecting_timeout)
 		{
-			return UNREACHABLE;
+			if (debug) {
+				return interval
+			}
+			else {
+				return UNREACHABLE;
+			}	
 		}
 		else
 		{
-			return CONNECTING;
+			return CONNECTING;		
 		}
 	}
 	else
 	{
-		if(interval < responding_port)
-		{
-			return REACHABLE;
+		if (debug) {
+			return interval;
 		}
-		else
-		{
-			return UNKNOWN;
-		}
+		else {
+			if(interval < responding_port)
+			{
+				return REACHABLE;
+			}
+			else
+			{
+				return UNKNOWN;
+			}
+		}	
 	}
 }
 
@@ -428,7 +420,12 @@ $(document).ready(function()
 						ports_list.forEach(function(port)
 						{							
 							scanWebSocket(host+":"+port, 10).then(function(result) {
-								document.getElementById('log').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> Result is:'+result+'<br>';
+								if (debug) {
+									document.getElementById('log').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING is:'+result+' ms<br>';
+								}
+								else {
+									document.getElementById('log').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> Result is:'+result+'<br>';
+								}
 							});	
 							
 						});
