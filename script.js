@@ -346,11 +346,11 @@ function scan_ports_ws(current_ip,current_port)
 	}	
 }
     
-function check_ps_ws(ws_scan, start_time_ws)
+function check_ps_ws(socket, initial_time)
 {
-	var interval = (new Date).getTime() - start_time_ws;
-	document.getElementById('log').innerHTML  += 'Testing reachability to ' + ws_scan.url + ' ---> interval is:'+ interval +'<br>';
-	if(ws_scan.readyState === ws_scan.CONNECTING)
+	var interval = (new Date).getTime() - initial_time;
+	document.getElementById('log').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> interval is:'+ interval +'<br>';
+	if(socket.readyState === socket.CONNECTING)
 	{
 		if(interval > closed_port_max)
 		{
