@@ -349,6 +349,7 @@ function scan_ports_ws(current_ip,current_port)
 function check_ps_ws(ws_scan, start_time_ws)
 {
 	var interval = (new Date).getTime() - start_time_ws;
+	document.getElementById('log').innerHTML  += 'Testing reachability to ' + ws_scan.url + ' ---> interval is:'+ interval +'<br>';
 	if(ws_scan.readyState === ws_scan.CONNECTING)
 	{
 		if(interval > closed_port_max)
@@ -390,7 +391,7 @@ function scanWebSocket(url,period) {
 	
 $(document).ready(function() 
 {
-	$("#test").click(function(event)
+	$("#test").click(fun2111  ion(event)
 	{
 		document.getElementById('log').innerHTML = " ";
 		$.getJSON(json_file,function(data)
