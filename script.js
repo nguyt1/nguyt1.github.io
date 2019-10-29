@@ -1,4 +1,5 @@
-var debug = true; // It will show what status is the port for each method
+var debug = true; // It will print the time interval in CONNECTING state
+var debug_detail = false; // it will print the time inverval in CONECTING state for each poll 
 var output;
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data file containing required urls, ip addresses, ports number 
 
@@ -334,7 +335,7 @@ const UNKNOWN = 3;
 function check_ps_ws(socket, initial_time)
 {
 	var interval = (new Date).getTime() - initial_time;
-	if (debug) {
+	if (debug_detail) {
 		document.getElementById('error').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> time in CONNECTING state is:'+ interval +' ms<br>';
 	}
 	if(socket.readyState === socket.CONNECTING)
