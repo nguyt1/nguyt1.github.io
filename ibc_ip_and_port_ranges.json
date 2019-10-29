@@ -1,5 +1,21 @@
 [
   {
+    "serviceName": "IM&P",
+    "ip_ranges": [
+      "142.165.233.120",
+      "142.165.233.121"
+    ],
+    "tcpPorts": "5222"
+  },
+  {
+    "serviceName": "File Transfer",
+    "ip_ranges": [
+      "142.165.233.120",
+      "142.165.233.121"
+    ],
+    "tcpPorts": "1081,52644,52645,52646"
+  },  
+  {
     "serviceName": "Polycom Device Provisioning",
     "ip_ranges": [
       "52.0.183.240",
