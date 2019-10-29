@@ -17,11 +17,6 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	
 	var host = undefined;
 	// TODO: Adjust times for each browser
-	var closetimeout = 120;
-	var opentimeout = 3000;
-	var open_port_max = 300;
-	var closed_port_max = 2000;
-	var delay = 600;
 	var ports = undefined;
 	var protocol = 'ftp://';
 
@@ -60,20 +55,7 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 	var s = undefined;
 
     	
-	function check_blocked(port_to_check)
-	{
-		var res = false;
 
-		for (var i=0; i<blocked_ports.length; i++)
-		{
-			if (port_to_check == blocked_ports[i])
-			{
-				res = true;
-			}
-		}
-	
-		return res;
-	}
 
 	function prepare_ports()
 	{
@@ -110,220 +92,9 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data
 		}
 	}
 
-	function cors_scan(hostname, port_)
-	{
-		if (check_blocked(parseInt(port_)))
-		{
-			process_port_cors = true;
-			port_status_cors = 4; // blocked
-			if (debug_value){ console.log('CORS Scan:' + hostname + 'at port ' + port_ + ' is BLOCKED');}
-			return;
-		}
-
-		//var interval = (new Date).getTime() - start_time_cors;
-
-		cs_scan = new XMLHttpRequest();
-
-            	cs_scan.open('GET', "https://" + hostname + ":" + port_, true);
-            	cs_scan.send(null);
-
-		intID_cors = setInterval(
-		function ()
-		{
-			var interval = (new Date).getTime() - start_time_cors;
-			if (process_port_cors) 
-			{
-				return;
-			}
-
-			if (cs_scan.readyState === 1) // CONNECTING
-			{
-			}
-
-			if (cs_scan.readyState === 2) // OPEN
-			{
-			}
-
-			if (cs_scan.readyState === 3) // CLOSING
-			{
-			}
-	
-			if (cs_scan.readyState === 4) // CLOSE
-			{
-				clearInterval(intID_cors);
-				process_port_cors = true;
-                                                
-				if (interval < closetimeout)
-				{
-					port_status_cors =  1; // closed
-					if (debug_value){ console.log('CORS Scan:' + hostname + 'at port ' + port_ +  ' is CLOSED');}
-				} else 
-				{
-					port_status_cors = 2; // open
-					if (debug_value){ console.log('CORS Scan:' + hostname + 'at port ' + port_ +  ' is OPEN ');}
-				}
-			}
-
-			if (interval >= opentimeout)
-			{
-				clearInterval(intID_cors);
-				process_port_cors = true;
-				port_status_cors = 3; // timeout
-				if (debug_value){ console.log('CORS Scan:' + hostname + 'at port ' + port_ + ' is TIMEOUT');}
-			}
-                        if (debug_value){ console.log('CORS Scan:' + hostname + 'at port' + port_ + ', Time interval=' + interval);}
-			output += 'CORS Scan:' + hostname + 'at port' + port_ + ', Time interval=' + interval + '<br>';
-			return;	
-		}
-		, 1);
-	}
-
-	function websocket_scan(hostname, port_)
-	{
-		process_port_ws = false;
-		if (check_blocked(parseInt(port_)))
-		{
-			process_port_ws = true;
-			port_status_ws = 4; // blocked
-			if (debug_value){ console.log('WS Scan:' + hostname + 'at port ' + port_ +  ' is BLOCKED');}
-			return port_status_ws;
-		}
-
-		if ("WebSocket" in window)
-		{
-			ws_scan = new WebSocket("wss://" + hostname + ":" + port_);
-		}
-		if ("MozWebSocket" in window)
-		{
-			ws_scan = new MozWebSocket("wss://" + hostname + ":" + port_);
-		}
-
-		//var interval = (new Date).getTime() - start_time_ws;
-		start_time_ws = (new Date).getTime();
-		intID_ws = setInterval(
-		function (ip, port)
-		{
-			var interval = (new Date).getTime() - start_time_ws;
-
-			if (process_port_ws) 
-			{
-				clearInterval(intID_ws);
-				sockets.push({
-					ip: hostname,
-					tcpport: port_,
-					status: port_status_ws
-				});
-				return;
-			}
-
-			if (ws_scan.readyState === 0) // CONNECTING
-			{
-			}
-
-			if (ws_scan.readyState === 1) // OPEN
-			{
-				// TODO: Detect WebSockets server running
-			}
-
-			if (ws_scan.readyState === 2) // CLOSING
-			{
-			}
-	
-			if (ws_scan.readyState === 3) // CLOSE
-			{
-				clearInterval(intID_ws);
-				process_port_ws = true;
-				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
-				if (interval < closetimeout)
-				{
-					port_status_ws =  1; // closed
-					if (debug_value){ console.log('WS Scan:' + ip + ' at port ' + port +  ' is CLOSED');}
-				} else 
-				{
-					port_status_ws = 2; // open
-					var known_service = "";
-					if (port_ in default_services) 
-					{
-						known_service = "(" + default_services[port_] + ")";
-					}
-					console.log('WS Scan:' + ip + ' at port ' + port +  ' is OPEN ' + known_service);
-				}
-				ws_scan.close();
-			}
-
-			if (interval >= opentimeout)
-			{
-				clearInterval(intID_ws);
-				process_port_ws = true;
-				if (debug_value) {console.log('WS scan: '+ ip + ' at port ' + port + ' , Time Interval: ' + interval)};
-				port_status_ws = 3; // timeout
-				if (debug_value){ console.log('WS Scan:' + ip + ' at port ' + port +  ' is TIMEOUT');}
-				ws_scan.close();
-
-			}
-			return;
-		}
-		, 1, hostname, port_);
-		return;
-	}
-
-	function http_scan(protocol_, hostname, port_)
-	{
-		//process_port_http = false;
-
-		img_scan = new Image();
-
-		img_scan.onerror = function(evt) 
-		{
-			var interval = (new Date).getTime() - start_time_http;
-		
-			if (interval < closetimeout)
-			{
-				if (process_port_http == false)
-				{
-					port_status_http = 1; // closed
-					if (debug_value){ console.log('HTTP Scan:' + hostname + 'at port ' + port_ +  ' is CLOSED');}
-					clearInterval(intID_http);
-				}
-				process_port_http = true;
-			}
-		};
-
-		img_scan.onload = img_scan.onerror;
-
-		img_scan.src = protocol_ + hostname + ":" + port_;
-		
-		intID_http = setInterval(
-		function ()
-		{
-			var interval = (new Date).getTime() - start_time_http;
-	
-			if (interval >= opentimeout)
-			{
-				if (!img_scan) return;
-				//img_scan.src = "";
-				img_scan = undefined;
-
-				if (process_port_http == false)
-				{
-					port_status_http = 2; // open
-					process_port_http = true;
-				}
-				clearInterval(intID_http);
-				var known_service = "";
-				if (port_ in default_services) 
-				{
-					known_service = "(" + default_services[port_] + ")";
-				}
-				console.log('HTTP Scan:' + hostname + 'at port ' + port_ +  ' is OPEN ' + known_service);
-			}
-		}
-		, 1);
-	}
-
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
-
+const poll_interval = 20;
 const responding_port = 300;
 const connecting_timeout = 2000;
 
@@ -420,7 +191,7 @@ $(document).ready(function()
 						// for each port, test reachability to host:port
 						ports_list.forEach(function(port)
 						{							
-							scanWebSocket(host+":"+port, 10).then(function(result) {
+							scanWebSocket(host+":"+port, poll_interval).then(function(result) {
 								if (debug) {
 									document.getElementById('log').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING is:'+result+' ms<br>';
 								}
