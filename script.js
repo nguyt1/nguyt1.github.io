@@ -1,7 +1,7 @@
-var debug_value = true; // It will show what status is the port for each method
+var debug = false; // It will show what status is the port for each method
 var output;
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to match json data file containing required urls, ip addresses, ports number 
-var sockets = [];
+
 
 // start of codes copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 	var blocked_ports = [ 1, 7, 9, 11, 13, 15, 17, 19, 20, 21, 22, 23, 25, 37, 42, 43, 53, 77, 79, 87, 95, 101, 102, 103, 104, 109, 110, 111, 113, 115, 117, 119, 123, 135, 139, 143, 179, 389, 465, 512, 513, 514, 515, 526, 530, 531, 532, 540, 556, 563, 587, 601, 636, 993, 995, 2049, 3659, 4045, 6000, 6665, 6666, 6667, 6668, 6669, 65535 ];
@@ -323,10 +323,13 @@ var sockets = [];
 
 // end of code copied from https://github.com/beefproject/beef/blob/master/modules/network/port_scanner/command.js
 
+const responding_port = 300;
+const connecting_timeout = 2000;
+
 const CONNECTING = 0;
-const OPEN = 1;
-const TIMEOUT = 2;
-const CLOSED = 3;
+const REACHABLE = 1;
+const UNREACHABLE = 2;
+const UNKNOWN = 3;
 
 function scan_ports_ws(current_ip,current_port)
 {
@@ -349,12 +352,14 @@ function scan_ports_ws(current_ip,current_port)
 function check_ps_ws(socket, initial_time)
 {
 	var interval = (new Date).getTime() - initial_time;
-	document.getElementById('log').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> interval is:'+ interval +'<br>';
+	if (debug) {
+		document.getElementById('log').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> time in CONNECTING state is:'+ interval +' ms<br>';
+	}
 	if(socket.readyState === socket.CONNECTING)
 	{
-		if(interval > closed_port_max)
+		if(interval > connecting_timeout)
 		{
-			return interval;
+			return UNREACHABLE;
 		}
 		else
 		{
@@ -363,13 +368,13 @@ function check_ps_ws(socket, initial_time)
 	}
 	else
 	{
-		if(interval < open_port_max)
+		if(interval < responding_port)
 		{
-			return interval;
+			return REACHABLE;
 		}
 		else
 		{
-			return interval;
+			return UNKNOWN;
 		}
 	}
 }
