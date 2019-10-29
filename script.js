@@ -391,7 +391,7 @@ function scanWebSocket(url,period) {
 	
 $(document).ready(function() 
 {
-	$("#test").click(fun2111  ion(event)
+	$("#test").click(function(event)
 	{
 		document.getElementById('log').innerHTML = " ";
 		$.getJSON(json_file,function(data)
