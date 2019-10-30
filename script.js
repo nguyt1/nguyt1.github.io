@@ -84,16 +84,16 @@ $(document).ready(function()  {
 			console.log(data);
 			data.forEach(function(record) { // For each IBC service record, do the followings
 				// check if json record have a TCP port field
-                        	if (typeof record.tcpPorts == "undefined") {
-                                	document.getElementById('error').innerHTML += 'Error: service record missing TCP port <br>';
-                                }
+				if (typeof record.tcpPorts == "undefined") {
+					document.getElementById('error').innerHTML += 'Error: service record missing TCP port <br>';
+				}
 				// check if json record has an IP address array field
-                                else if (typeof record.ip_ranges == "undefined") {
-                                	document.getElementById('error').innerHTML += 'Error: service record missing IP field <br>';
-                                }
+				else if (typeof record.ip_ranges == "undefined") {
+					document.getElementById('error').innerHTML += 'Error: service record missing IP field <br>';
+				}
 				// valid json record, start testing reachability to the given service
-                                else {
-                                	hosts_list = record.ip_ranges;
+				else {
+				hosts_list = record.ip_ranges;
 					// For each host in the service record
 					hosts_list.forEach(function(host) {
 						ports = record.tcpPorts;
@@ -104,22 +104,20 @@ $(document).ready(function()  {
 								if (debug) {
 									document.getElementById('error').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING state is:'+result+' ms<br>';
 								}
-								else {
-									switch (result) {
-										case UNREACHABLE:
-											document.getElementById('log').innerHTML  += host+':'+port+' is UNREACHABLE<br>';
-											break;
-										case REACHABLE:
-											document.getElementById('log').innerHTML  += host+':'+port+' is REACHABLE<br>';
-											break;
-										case UNKNOWN:
-											document.getElementById('log').innerHTML  += host+':'+port+' reachability is UNKNOWN<br>';
-											break;
-									}
+								switch (result) {
+									case UNREACHABLE:
+										document.getElementById('log').innerHTML  += host+':'+port+' is UNREACHABLE<br>';
+										break;
+									case REACHABLE:
+										document.getElementById('log').innerHTML  += host+':'+port+' is REACHABLE<br>';
+										break;
+									case UNKNOWN:
+										document.getElementById('log').innerHTML  += host+':'+port+' reachability is UNKNOWN<br>';
+										break;
 								}
-							});	
+							});
+						});	
 							
-						});
 					});
 				}
 			});
