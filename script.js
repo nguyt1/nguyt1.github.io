@@ -133,7 +133,7 @@ $(document).ready(function()  {
 										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="green">REACHABLE</font><br>';
 										break;
 									case UNKNOWN:
-										document.getElementById('log').innerHTML  += host+':'+port+' reachability is <font color="yellow">UNKNOWN</font><br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' reachability is <font color="orange">UNKNOWN</font><br>';
 										break;
 									default:
 										document.getElementById('log').innerHTML  += host+':'+port+' time in CONNECTING state is '+result+' msec<br>';
