@@ -1,35 +1,53 @@
 var debug = true; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
 var debug_detail = true; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
-var ports = "";
-var ports_list= [];
+var ports_str = "";
+var IPs_str = "";
+var ports_array= [];
+var IPs_array= [];
 
 const poll_interval = 10; // check websocket status every poll_interval in msec
 const reachable_timer = 2000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
-const unreachable_timer = 3000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
+const unreachable_timer = 4000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
 const CONNECTING = 0;
 const REACHABLE = 1;
 const UNREACHABLE = 2;
 const UNKNOWN = 3;
 
 function prepare_ports() {		 
-	if (ports.search(",") > 0) { // list of ports separated by comma
-		ports_list = ports.split(","); 
+	if (ports_str.search(",") > 0) { // list of ports separated by comma
+		ports_array = ports_str.split(","); 
 	}	
-	else if (ports.search("-") > 0) { // range of ports 
-		var firstport = parseInt(ports.split("-")[0]); // range of ports, start
-		var lastport = parseInt(ports.split("-")[1]); // range of ports, end
+	else if (ports_str.search("-") > 0) { // range of ports 
+		var firstport = parseInt(ports_str.split("-")[0]); // range of ports, start
+		var lastport = parseInt(ports_str.split("-")[1]); // range of ports, end
 		var a = 0;
 		for (var i = firstport; i<=lastport; i++) {
-			ports_list[a] = firstport + a;
+			ports_array[a] = firstport + a;
 			a++;
 		}
 	}	
-	else ports_list = ports.split(); // single port
+	else ports_array = ports_str.split(); // single port
+}
+
+function prepare_IPs() {		 
+	if (IPs_str.search(",") > 0) { // list of IP separated by comma
+		IPs_array = IPs_str.split(","); 
+	}	
+	else if (IPs_str.search("-") > 0) { // range of IPs 
+		var firstport = parseInt(IPs_str.split("-")[0]); // range of IPs, start
+		var lastport = parseInt(IPs_str.split("-")[1]); // range of IPs, end
+		var a = 0;
+		for (var i = firstport; i<=lastport; i++) {
+			IPs_array[a] = firstport + a;
+			a++;
+		}
+	}	
+	else IPs_array = IPs_str.split(); // single IP
 }
 
 function check_ps_ws(socket, initial_time) {
-	var interval = (new Date).getTime() - initial_time;
+	let interval = (new Date).getTime() - initial_time;
 	if (debug_detail) {
 		document.getElementById('error').innerHTML  += 'Testing reachability to ' + socket.url + ' ---> time in CONNECTING state is:'+ interval +' ms<br>';
 	}
