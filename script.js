@@ -1,5 +1,5 @@
 var debug = true; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
-var debug_detail = false; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
+var debug_detail = true; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports = "";
 var ports_list= [];
