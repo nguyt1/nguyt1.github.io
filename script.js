@@ -7,7 +7,7 @@ var IPs_str = "";
 var IPs_array= [];
 
 const poll_interval = 50; // check websocket status every poll_interval in msec
-const reachable_timer = 4000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
+const reachable_timer = 2000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
 const unreachable_timer = 6000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
 const CONNECTING = 0;
 const REACHABLE = 1;
