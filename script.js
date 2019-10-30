@@ -120,13 +120,12 @@ $(document).ready(function()  {
 				}
 				// valid json record, start testing reachability to the given service
 				else {
-				IPs_str = record.ipAddresses;
+					IPs_str = record.ipAddresses;
 					prepare_IPs();
-					// For each IP address in the service record
+					ports_str = record.tcpPorts;
+					prepare_ports();
+					// For each IP address and port in the service record
 					IPs_array.forEach(function(host) {
-						ports_str = record.tcpPorts;
-						prepare_ports();
-						// for each port, test reachability to host:port
 						ports_array.forEach(function(port) {						
 							scanWebSocket(host+":"+port, poll_interval).then(function(result) {
 								if (debug) {
