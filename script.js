@@ -86,7 +86,7 @@ function scanWebSocket(url,period) {
 //		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
 //	}
 	var checkCondition = function(resolve,reject) {
-		var result = check_ps_ws(ws_scan, start_time_ws);
+		let result = check_ps_ws(ws_scan, start_time_ws);
 		if (result === CONNECTING) {
 			setTimeout(checkCondition, period, resolve, reject);
 		}	
