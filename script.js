@@ -1,11 +1,11 @@
-var debug = true; // If set to true, program will print the time interval that the websocket stays in CONNECTING state
-var debug_detail = false; // If set to true, program will print the time inverval in CONNECTING state for each polling cycle 
+var debug = true; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
+var debug_detail = false; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports = "";
 var ports_list= [];
 
 const poll_interval = 10; // check websocket status every poll_interval in msec
-const reachable_timer = 300; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
+const reachable_timer = 2000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
 const unreachable_timer = 3000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
 const CONNECTING = 0;
 const REACHABLE = 1;
@@ -106,13 +106,16 @@ $(document).ready(function()  {
 								};
 								switch (result) {
 									case UNREACHABLE:
-										document.getElementById('log').innerHTML  += host+':'+port+' is UNREACHABLE<br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="red">UNREACHABLE</font><br>';
 										break;
 									case REACHABLE:
-										document.getElementById('log').innerHTML  += host+':'+port+' is REACHABLE<br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="green">REACHABLE</font><br>';
 										break;
 									case UNKNOWN:
-										document.getElementById('log').innerHTML  += host+':'+port+' reachability is UNKNOWN<br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' reachability is <font color="yellow">UNKNOWN</font><br>';
+										break;
+									default:
+										document.getElementById('log').innerHTML  += host+':'+port+' time in CONNECTING state is '+result+' msec<br>';
 										break;
 								};
 							});
