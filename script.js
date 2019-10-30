@@ -121,7 +121,7 @@ $(document).ready(function()  {
 				// valid json record, start testing reachability to the given service
 				else {
 					IPs_str = record.ipAddresses;
-					Ips_array = [];
+					IPs_array = [];
 					prepare_IPs();
 					ports_str = record.tcpPorts;
 					ports_array = [];
