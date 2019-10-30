@@ -4,9 +4,9 @@ var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json da
 var ports = "";
 var ports_list= [];
 
-const poll_interval = 20; // check websocket status every poll_interval in msec
+const poll_interval = 10; // check websocket status every poll_interval in msec
 const reachable_timer = 300; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
-const unreachable_timer = 2000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
+const unreachable_timer = 3000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
 const CONNECTING = 0;
 const REACHABLE = 1;
 const UNREACHABLE = 2;
@@ -103,7 +103,7 @@ $(document).ready(function()  {
 							scanWebSocket(host+":"+port, poll_interval).then(function(result) {
 								if (debug) {
 									document.getElementById('error').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING state is:'+result+' ms<br>';
-								}
+								};
 								switch (result) {
 									case UNREACHABLE:
 										document.getElementById('log').innerHTML  += host+':'+port+' is UNREACHABLE<br>';
@@ -114,7 +114,7 @@ $(document).ready(function()  {
 									case UNKNOWN:
 										document.getElementById('log').innerHTML  += host+':'+port+' reachability is UNKNOWN<br>';
 										break;
-								}
+								};
 							});
 						});	
 							
