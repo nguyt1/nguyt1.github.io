@@ -1,22 +1,22 @@
 [
   {
     "serviceName": "IM&P",
-    "ipAddresses": "142.165.233.120-121",
+    "ipAddresses": "142.165.233.[120-121]",
     "tcpPorts": "5222"
   },
   {
     "serviceName": "File Transfer",
-    "ipAddresses": "142.165.233.120-121",
+    "ipAddresses": "142.165.233.[120-121]",
     "tcpPorts": "1081,52644,52645,52646"
   },
   {
     "serviceName": "Desktop Sharing",
-    "ipAddresses": "142.165.233.120-121",
+    "ipAddresses": "142.165.233.[120-121]",
     "tcpPorts": "8443"
   },
   {
     "serviceName": "Login / Features Change",
-    "ipAddresses": "142.165.233.65-67",
+    "ipAddresses": "142.165.233.[65-67]",
     "tcpPorts": "443"
   },    
   {
