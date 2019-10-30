@@ -16,7 +16,7 @@
   },
   {
     "serviceName": "Login / Features Change",
-    "ipAddresses": "142.165.233.[65-67]",
+    "ipAddresses": "142.165.233.65-67",
     "tcpPorts": "443"
   },    
   {
