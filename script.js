@@ -82,6 +82,9 @@ function check_ps_ws(socket, initial_time) {
 function scanWebSocket(url,period) {
 	let start_time_ws = (new Date).getTime();
 	let ws_scan = new WebSocket("wss://" + url); 
+	ws_scan.onerror = function(event) {
+		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
+	}
 	var checkCondition = function(resolve,reject) {
 		var result = check_ps_ws(ws_scan, start_time_ws);
 		if (result === CONNECTING) {
