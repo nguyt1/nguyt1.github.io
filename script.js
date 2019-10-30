@@ -120,9 +120,10 @@ $(document).ready(function()  {
 				}
 				// valid json record, start testing reachability to the given service
 				else {
-				hosts_list = record.ip_ranges;
-					// For each host in the service record
-					hosts_list.forEach(function(host) {
+				IPs_str = record.ipAddresses;
+					prepare_IPs();
+					// For each IP address in the service record
+					IPs_array.forEach(function(host) {
 						ports_str = record.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
