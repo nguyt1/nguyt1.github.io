@@ -2,8 +2,8 @@ var debug = false; // if set to true, program will print the time interval that 
 var debug_detail = false; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports_str = "";
-var IPs_str = "";
 var ports_array= [];
+var IPs_str = "";
 var IPs_array= [];
 
 const poll_interval = 50; // check websocket status every poll_interval in msec
@@ -30,20 +30,26 @@ function prepare_ports() {
 	else ports_array = ports_str.split(); // single port
 }
 
-function prepare_IPs() {		 
-	if (IPs_str.search(",") > 0) { // list of IP separated by comma
-		IPs_array = IPs_str.split(","); 
-	}	
-	else if (IPs_str.search("-") > 0) { // range of IPs 
-		var firstport = parseInt(IPs_str.split("-")[0]); // range of IPs, start
-		var lastport = parseInt(IPs_str.split("-")[1]); // range of IPs, end
-		var a = 0;
-		for (var i = firstport; i<=lastport; i++) {
-			IPs_array[a] = firstport + a;
-			a++;
-		}
-	}	
-	else IPs_array = IPs_str.split(); // single IP
+function prepare_IPs() {
+	let data = IPs_str;
+	const ips = data.split(','); // put all IP fields into an array
+	// Use the built in forEach function to iterate through the array
+	ips.forEach(ip => {
+	  // This regular expression will match the potential extremities of the range
+	  const regexp = /[0-9]+\.[0-9]+\.[0-9]+\.\[(.*)\-(.*)\]/;
+	  const match = regexp.exec(ip);
+
+	  // If it's a range
+	  if (match && match.length && match[1] && match[2]) {
+	      // Iterate through the extremities and add the IP to the IPs_array
+	      for (let i = parseInt(match[1]); i <= parseInt(match[2]); i ++) {
+		IPs_array.push(ip.match(/[0-9]+\.[0-9]+\.[0-9]+\./i)[0] + i);
+	      }
+	  } else { // If it is a single IP
+	    // Add to the results
+	    IPs_array.push(ip);
+	  }
+	});	
 }
 
 function check_ps_ws(socket, initial_time) {
