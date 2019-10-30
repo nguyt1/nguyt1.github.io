@@ -99,8 +99,8 @@ function scanWebSocket(url,period) {
 	
 $(document).ready(function()  {
 	$("#test").click(function(event) {
-		document.getElementById('log').innerHTML = 'Results:<br>';
-		document.getElementById('error').innerHTML = 'Errors/Debugs:<br>';
+		document.getElementById('log').innerHTML = '<p> style="text-decoration:underline;"Results:</p><br>';
+		document.getElementById('error').innerHTML = '<p> style="text-decoration:underline;"Errors/Debugs:</p><br>';
 		$.getJSON(json_file,function(data) {
 			console.log(data);
 			data.forEach(function(record) { // For each IBC service record, do the followings
