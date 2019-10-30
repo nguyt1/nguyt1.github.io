@@ -59,28 +59,18 @@ function check_ps_ws(socket, initial_time) {
 	}
 	if(socket.readyState === socket.CONNECTING) {
 		if(interval > unreachable_timer) {
-			if (debug) {
-				return interval;
-			}
-			else {
-				return UNREACHABLE;
-			}	
+			return {status:UNREACHABLE,time_in_CONNECTING:interval};	
 		}
 		else {
-			return CONNECTING;		
+			return {status:CONNECTING,time_in_CONNECTING:interval};		
 		}
 	}
 	else {
-		if (debug) {
-			return interval;
+		if(interval < reachable_timer) {
+			return {status:REACHABLE,time_in_CONNECTING:interval };
 		}
 		else {
-			if(interval < reachable_timer) {
-				return REACHABLE;
-			}
-			else {
-				return UNKNOWN;
-			}
+			return {status:UNKNOWN,time_in_CONNECTING:interval };
 		}	
 	}
 }
@@ -93,7 +83,7 @@ function scanWebSocket(url,period) {
 //	}
 	let checkCondition = function(resolve,reject) {
 		let result = check_ps_ws(ws_scan, start_time_ws);
-		if (result === CONNECTING) {
+		if (result.status === CONNECTING) {
 			setTimeout(checkCondition, period, resolve, reject);
 		}	
 		else {
@@ -132,9 +122,9 @@ $(document).ready(function()  {
 						ports_array.forEach(function(port) {						
 							scanWebSocket(host+":"+port, poll_interval).then(function(result) {
 								if (debug) {
-									document.getElementById('error').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING state is:'+result+' ms<br>';
+									document.getElementById('error').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING state is:'+result.time_in_CONNECTING+' ms<br>';
 								};
-								switch (result) {
+								switch (result.status) {
 									case UNREACHABLE:
 										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="red">UNREACHABLE</font><br>';
 										break;
