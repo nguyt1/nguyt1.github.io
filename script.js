@@ -85,7 +85,7 @@ function scanWebSocket(url,period) {
 //	ws_scan.onerror = function(event) {
 //		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
 //	}
-	var checkCondition = function(resolve,reject) {
+	let checkCondition = function(resolve,reject) {
 		let result = check_ps_ws(ws_scan, start_time_ws);
 		if (result === CONNECTING) {
 			setTimeout(checkCondition, period, resolve, reject);
@@ -99,8 +99,8 @@ function scanWebSocket(url,period) {
 	
 $(document).ready(function()  {
 	$("#test").click(function(event) {
-		document.getElementById('log').innerHTML = '<p style="text-decoration:underline;">Results:</p><br>';
-		document.getElementById('error').innerHTML = '<p style="text-decoration:underline;">Errors/Debugs:</p><br>';
+		document.getElementById('log').innerHTML = '<p style="text-decoration:underline;">Results:</p>';
+		document.getElementById('error').innerHTML = '<p style="text-decoration:underline;">Errors/Debugs:</p>';
 		$.getJSON(json_file,function(data) {
 			console.log(data);
 			data.forEach(function(record) { // For each IBC service record, do the followings
