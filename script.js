@@ -1,5 +1,5 @@
-var debug = true; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
-var debug_detail = true; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
+var debug = false; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
+var debug_detail = false; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports_str = "";
 var IPs_str = "";
@@ -82,9 +82,9 @@ function check_ps_ws(socket, initial_time) {
 function scanWebSocket(url,period) {
 	let start_time_ws = (new Date).getTime();
 	let ws_scan = new WebSocket("wss://" + url); 
-	ws_scan.onerror = function(event) {
-		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
-	}
+//	ws_scan.onerror = function(event) {
+//		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
+//	}
 	var checkCondition = function(resolve,reject) {
 		var result = check_ps_ws(ws_scan, start_time_ws);
 		if (result === CONNECTING) {
