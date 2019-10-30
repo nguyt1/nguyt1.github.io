@@ -114,10 +114,10 @@ $(document).ready(function()  {
 				hosts_list = record.ip_ranges;
 					// For each host in the service record
 					hosts_list.forEach(function(host) {
-						ports = record.tcpPorts;
+						ports_str = record.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
-						ports_list.forEach(function(port) {						
+						ports_array.forEach(function(port) {						
 							scanWebSocket(host+":"+port, poll_interval).then(function(result) {
 								if (debug) {
 									document.getElementById('error').innerHTML  += 'Testing reachability to '+host+':'+port+' ---> time in CONNECTING state is:'+result+' ms<br>';
