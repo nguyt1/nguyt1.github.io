@@ -1,4 +1,4 @@
-var debug = true; // If set to true, program will print the time interval that the websocket stays in CONNECTING state
+var debug = false; // If set to true, program will print the time interval that the websocket stays in CONNECTING state
 var debug_detail = false; // If set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports = "";
@@ -78,8 +78,8 @@ function scanWebSocket(url,period) {
 	
 $(document).ready(function()  {
 	$("#test").click(function(event) {
-		document.getElementById('log').innerHTML = '<br>';
-		document.getElementById('error').innerHTML = '<br>';
+		document.getElementById('log').innerHTML = 'Results:<br>';
+		document.getElementById('error').innerHTML = 'Errors/Debugs:<br>';
 		$.getJSON(json_file,function(data) {
 			console.log(data);
 			data.forEach(function(record) { // For each IBC service record, do the followings
