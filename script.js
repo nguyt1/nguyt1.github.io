@@ -95,7 +95,7 @@ $(document).ready(function()  {
                                 else {
                                 	hosts_list = record.ip_ranges;
 					// For each host in the service record
-					hosts_list.forEach(function(host) 
+					hosts_list.forEach(function(host) {
 						ports = record.tcpPorts;
 						prepare_ports();
 						// for each port, test reachability to host:port
@@ -121,7 +121,7 @@ $(document).ready(function()  {
 							
 						});
 					});
-				};
+				}
 			});
 		});
 	});
