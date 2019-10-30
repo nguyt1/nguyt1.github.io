@@ -1,4 +1,4 @@
-var debug = true; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
+var debug = false; // if set to true, program will print the time interval that the websocket stays in CONNECTING state
 var debug_detail = false; // if set to true, program will print the time inverval in CONNECTING state for each polling cycle 
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports_str = "";
@@ -7,7 +7,7 @@ var ports_array= [];
 var IPs_array= [];
 
 const poll_interval = 10; // check websocket status every poll_interval in msec
-const reachable_timer = 2500; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
+const reachable_timer = 4000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
 const unreachable_timer = 5000; // if websocket in CONNECTING for more than this value, then infer that the port is unreachable
 const CONNECTING = 0;
 const REACHABLE = 1;
