@@ -115,7 +115,7 @@ $(document).ready(function()  {
 					document.getElementById('error').innerHTML += 'Error: service record missing TCP port <br>';
 				}
 				// check if json record has an IP address array field
-				else if (typeof record.ip_ranges == "undefined") {
+				else if (typeof record.ipAddresses == "undefined") {
 					document.getElementById('error').innerHTML += 'Error: service record missing IP field <br>';
 				}
 				// valid json record, start testing reachability to the given service
