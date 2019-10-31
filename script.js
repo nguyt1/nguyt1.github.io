@@ -77,20 +77,23 @@ function check_ps_ws(socket, initial_time) {
 
 function scanWebSocket(url,period) {
 	let start_time_ws = (new Date).getTime();
-	let ws_scan = new WebSocket("wss://" + url); 
-//	ws_scan.onerror = function(event) {
-//		document.getElementById('error').innerHTML += 'WebSocket error observed: ' + event + '<br>'; 
-//	}
-	let checkCondition = function(resolve,reject) {
-		let result = check_ps_ws(ws_scan, start_time_ws);
-		if (result.status === CONNECTING) {
-			setTimeout(checkCondition, period, resolve, reject);
-		}	
-		else {
-			resolve(result);
-		}
-	}		
-	return new Promise(checkCondition);
+	try {
+		let ws_scan = new WebSocket("wss://" + url); 
+		let checkCondition = function(resolve,reject) {
+			let result = check_ps_ws(ws_scan, start_time_ws);
+			if (result.status === CONNECTING) {
+				setTimeout(checkCondition, period, resolve, reject);
+			}	
+			else {
+				resolve(result);
+			}
+		}		
+		return new Promise(checkCondition);
+	}
+	catch(err) {
+		document.getElementById('error').innerHTML += 'Error: <br>'+err;
+		return -1;
+	}	
 }
 	
 $(document).ready(function()  {
