@@ -79,9 +79,6 @@ function scanWebSocket(url,period) {
 	let start_time_ws = (new Date).getTime();
 	try {
 		let ws_scan = new WebSocket("wss://" + url); 
-		ws_scan.addEventListener('error', function (event) {
-			document.getElementById('error').innerHTML += 'WebSocket error: ' + event + '<br>';
-		});
 		let checkCondition = function(resolve,reject) {
 			let result = check_ps_ws(ws_scan, start_time_ws);
 			if (result.status === CONNECTING) {
