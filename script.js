@@ -52,6 +52,15 @@ function prepare_IPs() {
 	});	
 }
 
+function prepare_urls() {
+	let data = hosts_str;
+	const urls = data.split(','); // put all url fields into an array
+	// Use the built in forEach function to iterate through the array
+	urls.forEach(url => {
+	    hosts_array.push(url);
+	});	
+}
+
 function check_ps_ws(socket, initial_time) {
 	let interval = (new Date).getTime() - initial_time;
 	if (debug_detail) {
