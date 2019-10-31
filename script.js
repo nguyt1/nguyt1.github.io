@@ -3,8 +3,8 @@ var debug_detail = false; // if set to true, program will print the time inverva
 var json_file = 'ibc_ip_and_port_ranges.json'; // change this to name of json data file containing required ip addresses, ports numbers
 var ports_str = "";
 var ports_array= [];
-var IPs_str = "";
-var IPs_array= [];
+var hosts_str = "";
+var hosts_array= [];
 
 const poll_interval = 50; // check websocket status every poll_interval in msec
 const reachable_timer = 2000; // if websocket in CONNECTING for less than this value, then infer that the port is reachable 
@@ -31,7 +31,7 @@ function prepare_ports() {
 }
 
 function prepare_IPs() {
-	let data = IPs_str;
+	let data = hosts_str;
 	const ips = data.split(','); // put all IP fields into an array
 	// Use the built in forEach function to iterate through the array
 	ips.forEach(ip => {
@@ -43,11 +43,11 @@ function prepare_IPs() {
 	  if (match && match.length && match[1] && match[2]) {
 	      // Iterate through the extremities and add the IP to the IPs_array
 	      for (let i = parseInt(match[1]); i <= parseInt(match[2]); i ++) {
-		IPs_array.push(ip.match(/[0-9]+\.[0-9]+\.[0-9]+\./i)[0] + i);
+		hosts_array.push(ip.match(/[0-9]+\.[0-9]+\.[0-9]+\./i)[0] + i);
 	      }
 	  } else { // If it is a single IP
 	    // Add to the results
-	    IPs_array.push(ip);
+	    hosts_array.push(ip);
 	  }
 	});	
 }
@@ -107,15 +107,21 @@ $(document).ready(function()  {
 				if (typeof record.tcpPorts == "undefined") {
 					document.getElementById('error').innerHTML += 'Error: service record missing TCP port <br>';
 				}
-				// check if json record has an IP address array field
-				else if (typeof record.ipAddresses == "undefined") {
-					document.getElementById('error').innerHTML += 'Error: service record missing IP field <br>';
+				// check if json record has either a URL or an IP address field
+				else if (typeof record.ipAddresses == "undefined" && typeof record.urls == "undefined") {
+					document.getElementById('error').innerHTML += 'Error: service record missing both URL and IP field <br>';
 				}
 				// valid json record, start testing reachability to the given service
 				else {
-					IPs_str = record.ipAddresses;
-					IPs_array = [];
-					prepare_IPs();
+					hosts_array = [];
+					if (typeof record.urls !== "undefined") {
+						hosts_str = record.urls;
+						prepare_urls();
+					}
+					else {
+						hosts_str = record.ipAddresses;
+						prepare_IPs();
+					}	
 					ports_str = record.tcpPorts;
 					ports_array = [];
 					prepare_ports();
