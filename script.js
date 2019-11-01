@@ -146,13 +146,13 @@ $(document).ready(function()  {
 								};
 								switch (result.status) {
 									case UNREACHABLE:
-										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="red">UNREACHABLE</font><br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' seems to be <font color="red">UNREACHABLE</font><br>';
 										break;
 									case REACHABLE:
-										document.getElementById('log').innerHTML  += host+':'+port+' is <font color="green">REACHABLE</font><br>';
+										// document.getElementById('log').innerHTML  += host+':'+port+' is <font color="green">REACHABLE</font><br>';
 										break;
 									case UNKNOWN:
-										document.getElementById('log').innerHTML  += host+':'+port+' reachability is <font color="orange">UNKNOWN</font><br>';
+										document.getElementById('log').innerHTML  += host+':'+port+' seems to be <font color="red">UNREACHABLE</font><br>';
 										break;
 									default:
 										document.getElementById('log').innerHTML  += host+':'+port+' time in CONNECTING state is '+result+' msec<br>';
